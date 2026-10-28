@@ -1,6 +1,7 @@
 import React from 'react';
 import { TabType, ArenaSubTab } from '../types';
 import { FreeFlowInfographic } from './FreeFlowInfographic';
+import { GantryMapSection } from './GantryMapSection';
 import { BookOpen, Layers, ShieldCheck, ArrowRight, MapPin, Zap, Clock, FileCheck } from 'lucide-react';
 
 interface HomeOverviewProps {
@@ -136,6 +137,9 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
           <FreeFlowInfographic />
         </div>
       </section>
+
+      {/* Map of All 14 Gantries with exact KMs on Rota da Celulose */}
+      <GantryMapSection />
 
       {/* Quick Navigation Cards: 3 Interactive Learning Pillars */}
       <section className="grid grid-cols-1 md:grid-cols-3 gap-6">

@@ -127,6 +127,7 @@ export function App() {
         isOpen={isCertificateOpen}
         onClose={() => setIsCertificateOpen(false)}
         profile={profile}
+        onUpdateProfile={updateProfile}
         totalModulesCount={modules.length}
       />
 
