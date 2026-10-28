@@ -1,0 +1,6 @@
+{
+  "summary":  "Plano de implementação completo para o Portal de Treinamento e Capacitação da Concessionária Caminhos da Celulose (Free Flow & CCA), 100% compatível com GitHub Pages, sem necessidade de login, com persistência via LocalStorage, jogo da memória de termos, simulador de ocorrências operacionais do CCA, quiz cronometrado e emissão de certificados locais.",
+  "updatedAt":  "2026-10-28T12:36:49.789526305Z",
+  "requestFeedback":  true,
+  "userFacing":  true
+}
