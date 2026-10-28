@@ -5,7 +5,7 @@ export const initialModules: TrainingModule[] = [
     id: 'mod-1',
     order: 1,
     title: 'Fundamentos do Pedágio Eletrônico & Arquitetura do Pórtico',
-    description: 'Entenda como funciona o pedágio automático sem cancelas na Caminhos da Celulose e a tecnologia instalada nos 12 pontos de cobrança da malha rodoviária.',
+    description: 'Entenda como funciona o pedágio automático sem cancelas na Caminhos da Celulose e a tecnologia instalada nos 14 pórticos da malha rodoviária.',
     estimatedMinutes: 12,
     category: 'Tecnologia',
     sections: [
@@ -45,6 +45,24 @@ export const initialModules: TrainingModule[] = [
           'Iluminação infravermelha não ofusca a visão do motorista'
         ],
         warningNote: 'A redundância entre RFID e OCR garante que mesmo que uma TAG falhe ou não exista, a placa seja imediatamente catalogada para a triagem do CCA.'
+      },
+      {
+        id: 'sec-1-3',
+        title: 'Tecnologia Embarcada nos Pórticos',
+        subtitle: 'Como os Sensores do Pedágio Eletrônico se Comunicam com o CCA',
+        content: [
+          'Os pórticos de pedágio eletrônico da Caminhos da Celulose operam integrados em tempo real com o Centro de Controle de Arrecadação (CCA). Cada pórtico reúne antenas RFID, câmeras OCR de alta definição, scanners laser LiDAR 3D e sensores de contagem de eixos.',
+          'Quando um veículo transita sob o pórtico, os subsistemas trabalham em conjunto para capturar e transmitir a telemetria completa (velocidade, placa dianteira/traseira, tag RFID e volumetria) diretamente para a mesa de auditoria do operador.'
+        ],
+        keyPoints: [
+          'Integração instantânea entre pórticos aéreos e servidores do CCA',
+          'Simulador interativo disponível na própria lição para testes práticos de telemetria'
+        ],
+        checklist: [
+          'Compreendi como os sensores transmitem os dados de passagem para o CCA',
+          'Testei o simulador interativo de telemetria dos sensores aéreos'
+        ],
+        warningNote: 'A comunicação entre os pórticos e o CCA utiliza fibra óptica redundante e links via rádio dedicados com criptografia de ponta.'
       }
     ]
   },

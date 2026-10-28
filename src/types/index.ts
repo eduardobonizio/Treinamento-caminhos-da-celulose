@@ -1,4 +1,4 @@
-export type TabType = 'home' | 'training' | 'arena' | 'certificates';
+export type TabType = 'home' | 'calculator' | 'training' | 'arena' | 'certificates';
 export type ArenaSubTab = 'memory' | 'simulator' | 'quiz';
 
 export interface ModuleSection {

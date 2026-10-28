@@ -9,6 +9,10 @@
   }
 }
 
+.leaflet-tile-pane {
+  filter: contrast(0.98) saturate(0.95);
+}
+
 .perspective-1000 {
   perspective: 1000px;
 }

@@ -8,6 +8,7 @@ import { ArenaView } from './components/ArenaView';
 import { CertificateModal } from './components/CertificateModal';
 import { ContentManagerModal } from './components/ContentManagerModal';
 import { ProfileModal } from './components/ProfileModal';
+import { RouteTollCalculator } from './components/RouteTollCalculator';
 
 export function App() {
   const {
@@ -39,6 +40,7 @@ export function App() {
     const handleHashChange = () => {
       const hash = window.location.hash.replace('#/', '').replace('#', '');
       if (hash === 'treinamento') setCurrentTab('training');
+      else if (hash === 'calculadora' || hash === 'calculador') setCurrentTab('calculator');
       else if (hash === 'arena' || hash === 'provas') setCurrentTab('arena');
       else setCurrentTab('home');
     };
@@ -54,6 +56,7 @@ export function App() {
     }
     setCurrentTab(tab);
     if (tab === 'home') window.location.hash = '#/inicio';
+    else if (tab === 'calculator') window.location.hash = '#/calculadora';
     else if (tab === 'training') window.location.hash = '#/treinamento';
     else if (tab === 'arena') window.location.hash = '#/arena';
     window.scrollTo({ top: 0, behavior: 'smooth' });
@@ -90,6 +93,10 @@ export function App() {
             completedModulesCount={profile.completedModules?.length || 0}
             totalModulesCount={modules.length}
           />
+        )}
+
+        {currentTab === 'calculator' && (
+          <RouteTollCalculator />
         )}
 
         {currentTab === 'training' && (
@@ -162,6 +169,12 @@ export function App() {
               className="hover:text-emerald-800 cursor-pointer"
             >
               Visão Geral
+            </button>
+            <button
+              onClick={() => handleSelectTab('calculator')}
+              className="hover:text-emerald-800 cursor-pointer font-semibold text-[#46973A]"
+            >
+              Calculadora
             </button>
             <button
               onClick={() => handleSelectTab('training')}

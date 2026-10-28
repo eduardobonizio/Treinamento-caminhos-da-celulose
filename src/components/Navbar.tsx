@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TabType, OperatorProfile } from '../types';
-import { Award, User, BookOpen, Layers, Home, CheckCircle2, SlidersHorizontal } from 'lucide-react';
+import { Award, User, BookOpen, Layers, Home, CheckCircle2, SlidersHorizontal, Calculator } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: TabType;
@@ -66,6 +66,18 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Home className="w-4 h-4" />
               <span>Visão Geral</span>
+            </button>
+
+            <button
+              onClick={() => onSelectTab('calculator')}
+              className={`flex items-center gap-1.5 py-1.5 transition-colors whitespace-nowrap cursor-pointer ${
+                currentTab === 'calculator'
+                  ? 'text-[#46973A] font-bold border-b-2 border-[#46973A]'
+                  : 'text-[#1A2B49] hover:text-[#46973A]'
+              }`}
+            >
+              <Calculator className="w-4 h-4" />
+              <span>Calculadora de Pedágio</span>
             </button>
 
             <button
@@ -147,6 +159,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`text-left px-3 py-2 rounded-lg ${currentTab === 'home' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
             >
               Visão Geral do Pedágio Eletrônico
+            </button>
+            <button
+              onClick={() => { onSelectTab('calculator'); setMobileMenuOpen(false); }}
+              className={`text-left px-3 py-2 rounded-lg ${currentTab === 'calculator' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
+            >
+              Calculadora de Pedágio por Rota
             </button>
             <button
               onClick={() => { onSelectTab('training'); setMobileMenuOpen(false); }}

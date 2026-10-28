@@ -1,6 +1,6 @@
 {
-  "summary":  "Plano de implementação completo para o Portal de Treinamento e Capacitação da Concessionária Caminhos da Celulose (Free Flow & CCA), 100% compatível com GitHub Pages, sem necessidade de login, com persistência via LocalStorage, jogo da memória de termos, simulador de ocorrências operacionais do CCA, quiz cronometrado e emissão de certificados locais.",
-  "updatedAt":  "2026-10-28T12:36:49.789526305Z",
+  "summary":  "Plano de implementação aprovado para a Calculadora de Pedágio por Rota com Grafo de Adjacência e BFS/Dijkstra topo-geográfico para os 14 pórticos e 11 municípios.",
+  "updatedAt":  "2026-10-28T17:35:05.574877888Z",
   "requestFeedback":  true,
   "userFacing":  true
 }

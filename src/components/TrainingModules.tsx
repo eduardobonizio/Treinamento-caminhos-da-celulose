@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { TrainingModule } from '../types';
 import { CheckCircle2, Clock, BookOpen, AlertTriangle, ArrowRight, ArrowLeft, Check, Sparkles } from 'lucide-react';
+import { FreeFlowInfographic } from './FreeFlowInfographic';
 
 interface TrainingModulesProps {
   modules: TrainingModule[];
@@ -202,6 +203,12 @@ export const TrainingModules: React.FC<TrainingModulesProps> = ({
                   <p key={pIdx}>{p}</p>
                 ))}
               </div>
+
+              {activeModuleId === 'mod-1' && activeSection.id === 'sec-1-3' && (
+                <div className="py-2">
+                  <FreeFlowInfographic />
+                </div>
+              )}
 
               {/* Warning or Critical Note if present */}
               {activeSection.warningNote && (

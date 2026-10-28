@@ -6,11 +6,11 @@ import { initialMemoryPairs } from '../data/memoryData';
 import { initialCCACases } from '../data/casesData';
 
 const STORAGE_KEYS = {
-  PROFILE: 'caminhos_celulose_operator_profile_v1',
-  CUSTOM_MODULES: 'caminhos_celulose_custom_modules_v1',
-  CUSTOM_QUESTIONS: 'caminhos_celulose_custom_questions_v1',
-  CUSTOM_MEMORY: 'caminhos_celulose_custom_memory_v1',
-  CUSTOM_CASES: 'caminhos_celulose_custom_cases_v1'
+  PROFILE: 'caminhos_celulose_operator_profile_v2',
+  CUSTOM_MODULES: 'caminhos_celulose_custom_modules_v2',
+  CUSTOM_QUESTIONS: 'caminhos_celulose_custom_questions_v2',
+  CUSTOM_MEMORY: 'caminhos_celulose_custom_memory_v2',
+  CUSTOM_CASES: 'caminhos_celulose_custom_cases_v2'
 };
 
 const defaultProfile: OperatorProfile = {
