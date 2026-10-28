@@ -181,7 +181,7 @@ export const GantryMapSection: React.FC = () => {
             <span>AGEMS · 12 Pontos de Cobrança</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight mt-1">
-            Localização Oficial dos Pórticos Free Flow (FF 01 a FF 12)
+            Localização Oficial dos Pórticos de Pedágio Eletrônico (FF 01 a FF 12)
           </h2>
           <div className="w-16 h-1 bg-[#46973A] rounded-full mt-2" />
           <p className="text-sm text-slate-600 mt-2 max-w-2xl">
@@ -427,7 +427,7 @@ export const GantryMapSection: React.FC = () => {
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#46973A]" />
-                Pórtico Free Flow (FF 01 a FF 12)
+                Pórtico de Pedágio Eletrônico (FF 01 a FF 12)
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-white" />

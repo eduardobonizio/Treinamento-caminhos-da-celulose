@@ -39,7 +39,7 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
           </h1>
 
           <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl">
-            Segurança, compromisso com o desenvolvimento sustentável e inovação em cada quilômetro da sua viagem. Conheça as diretrizes operacionais do pedágio 100% automático (Free Flow) na Rota da Celulose.
+            Segurança, compromisso com o desenvolvimento sustentável e inovação em cada quilômetro da sua viagem. Conheça as diretrizes operacionais do sistema de pedágio eletrônico na Rota da Celulose.
           </p>
 
           {/* Interactive Carousel Dots like official site */}
@@ -113,14 +113,14 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
       <section className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-xs">
         <div className="max-w-3xl mb-8">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight">
-            Sobre a Caminhos da Celulose & o Free Flow
+            Sobre a Caminhos da Celulose & o Pedágio Eletrônico
           </h2>
           <div className="w-14 h-1 bg-[#46973A] rounded-full mt-2.5 mb-3" />
           <h3 className="text-base font-semibold text-[#1A2B49]/80">
             Compromisso com a segurança viária e o desenvolvimento sustentável do Mato Grosso do Sul.
           </h3>
           <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-            A Concessionária Caminhos da Celulose é responsável pela administração, recuperação e modernização de 870,3 km de rodovias estaduais e federais. Nosso objetivo é transformar a experiência do usuário através de tecnologia de livre passagem (Free Flow), serviços de atendimento e obras de infraestrutura que impulsionam o escoamento florestal e o agronegócio sul-mato-grossense.
+            A Concessionária Caminhos da Celulose é responsável pela administração, recuperação e modernização de 870,3 km de rodovias estaduais e federais. Nosso objetivo é transformar a experiência do usuário através da tecnologia de pedágio eletrônico (sem cancelas), serviços de atendimento e obras de infraestrutura que impulsionam o escoamento florestal e o agronegócio sul-mato-grossense.
           </p>
         </div>
 
@@ -131,7 +131,7 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
               Tecnologia Embarcada nos Pórticos
             </span>
             <h3 className="text-xl font-bold text-[#1A2B49] mt-0.5">
-              Como os Sensores do Free Flow se Comunicam com o CCA
+              Como os Sensores do Pedágio Eletrônico se Comunicam com o CCA
             </h3>
           </div>
           <FreeFlowInfographic />
@@ -181,7 +181,7 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
               Jogo da Memória Operacional
             </h3>
             <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              Associe os termos técnicos do Free Flow às suas definições reais. Cada par correto desaparece do tabuleiro! Treine sua velocidade.
+              Associe os termos técnicos do pedágio eletrônico às suas definições reais. Cada par correto desaparece do tabuleiro! Treine sua velocidade.
             </p>
           </div>
           <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">

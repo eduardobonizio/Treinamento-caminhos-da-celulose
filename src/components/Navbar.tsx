@@ -45,7 +45,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               />
               <div className="hidden lg:block pl-2 border-l border-slate-200">
                 <span className="text-[11px] font-bold text-[#1A2B49] tracking-wider uppercase block">
-                  Capacitação Free Flow
+                  Capacitação em Pedágio Eletrônico
                 </span>
                 <span className="text-[10px] font-medium text-[#46973A] tracking-wide block">
                   Centro de Controle de Arrecadação · CCA
@@ -95,18 +95,6 @@ export const Navbar: React.FC<NavbarProps> = ({
             >
               <Layers className="w-4 h-4" />
               <span>Arena & Provas</span>
-            </button>
-
-            <button
-              onClick={() => onSelectTab('certificates')}
-              className={`flex items-center gap-1.5 py-1.5 transition-colors whitespace-nowrap cursor-pointer ${
-                currentTab === 'certificates'
-                  ? 'text-[#46973A] font-bold border-b-2 border-[#46973A]'
-                  : 'text-[#1A2B49] hover:text-[#46973A]'
-              }`}
-            >
-              <Award className="w-4 h-4" />
-              <span>Certificado</span>
             </button>
           </nav>
 
@@ -158,7 +146,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               onClick={() => { onSelectTab('home'); setMobileMenuOpen(false); }}
               className={`text-left px-3 py-2 rounded-lg ${currentTab === 'home' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
             >
-              Visão Geral do Free Flow
+              Visão Geral do Pedágio Eletrônico
             </button>
             <button
               onClick={() => { onSelectTab('training'); setMobileMenuOpen(false); }}
@@ -171,12 +159,6 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`text-left px-3 py-2 rounded-lg ${currentTab === 'arena' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
             >
               Arena Interativa (Quiz, Memória & Casos)
-            </button>
-            <button
-              onClick={() => { onSelectTab('certificates'); setMobileMenuOpen(false); }}
-              className={`text-left px-3 py-2 rounded-lg ${currentTab === 'certificates' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
-            >
-              Certificado & Badges
             </button>
           </div>
         )}

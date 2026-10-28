@@ -164,7 +164,7 @@ export const MemoryCardGame: React.FC<MemoryCardGameProps> = ({
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-xl bg-white border border-slate-200 shadow-xs">
         <div>
           <span className="text-xs font-bold text-amber-800 uppercase tracking-wider block">
-            Jogo da Memória do Free Flow
+            Jogo da Memória do Pedágio Eletrônico
           </span>
           <span className="text-sm font-semibold text-slate-800">
             Combine o Termo Técnico à sua Definição (Pares corretos desaparecem!)
@@ -296,7 +296,7 @@ export const MemoryCardGame: React.FC<MemoryCardGameProps> = ({
                       }}
                     />
                     <span className="text-[10px] text-[#46973A] font-mono font-bold tracking-wider">
-                      FREE FLOW · CCA
+                      PEDÁGIO ELETRÔNICO · CCA
                     </span>
                   </div>
 
@@ -336,7 +336,7 @@ export const MemoryCardGame: React.FC<MemoryCardGameProps> = ({
           </h3>
           
           <p className="text-sm text-slate-600 mt-2 max-w-md mx-auto">
-            Você eliminou todos os pares do tabuleiro associando com precisão os termos técnicos de Free Flow e normas do CCA.
+            Você eliminou todos os pares do tabuleiro associando com precisão os termos técnicos de pedágio eletrônico e normas do CCA.
           </p>
 
           <div className="my-6 p-4 rounded-xl bg-slate-50 border border-slate-200 grid grid-cols-2 gap-4 text-center">

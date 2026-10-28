@@ -78,7 +78,7 @@ export const FreeFlowInfographic: React.FC = () => {
       <div className="p-6 border-b border-slate-100 flex flex-col md:flex-row md:items-center justify-between gap-4">
         <div>
           <h3 className="text-lg font-bold text-slate-900">
-            Anatomia do Pórtico Free Flow · Caminhos da Celulose
+            Anatomia do Pórtico de Pedágio Eletrônico · Caminhos da Celulose
           </h3>
           <p className="text-sm text-slate-500 mt-0.5">
             Clique nos sensores aéreos para inspecionar os subsistemas conectados diretamente ao CCA

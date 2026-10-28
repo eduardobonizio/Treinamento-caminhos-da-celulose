@@ -40,12 +40,7 @@ export function App() {
       const hash = window.location.hash.replace('#/', '').replace('#', '');
       if (hash === 'treinamento') setCurrentTab('training');
       else if (hash === 'arena' || hash === 'provas') setCurrentTab('arena');
-      else if (hash === 'certificado') {
-        setCurrentTab('home');
-        setIsCertificateOpen(true);
-      } else {
-        setCurrentTab('home');
-      }
+      else setCurrentTab('home');
     };
 
     handleHashChange();
@@ -55,8 +50,7 @@ export function App() {
 
   const handleSelectTab = (tab: TabType) => {
     if (tab === 'certificates') {
-      setIsCertificateOpen(true);
-      return;
+      return; // Ocultado temporariamente conforme solicitado
     }
     setCurrentTab(tab);
     if (tab === 'home') window.location.hash = '#/inicio';
@@ -117,14 +111,14 @@ export function App() {
             onRecordMemoryTime={recordMemoryTime}
             onRecordCaseCompleted={recordCaseCompleted}
             onRecordQuizScore={recordQuizResult}
-            onOpenCertificate={() => setIsCertificateOpen(true)}
+            onOpenCertificate={() => {}}
           />
         )}
       </main>
 
       {/* Modals */}
       <CertificateModal
-        isOpen={isCertificateOpen}
+        isOpen={false}
         onClose={() => setIsCertificateOpen(false)}
         profile={profile}
         onUpdateProfile={updateProfile}

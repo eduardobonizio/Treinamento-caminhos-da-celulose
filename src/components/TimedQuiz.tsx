@@ -274,21 +274,11 @@ export const TimedQuiz: React.FC<TimedQuizProps> = ({
           <div className="flex flex-wrap items-center justify-center gap-3 pt-2">
             <button
               onClick={restartQuiz}
-              className="flex items-center gap-1.5 px-4 py-2.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-800 text-xs font-semibold transition-colors cursor-pointer"
+              className="flex items-center gap-1.5 px-5 py-2.5 rounded-xl bg-[#1A2B49] hover:bg-[#121E33] text-white text-xs font-semibold transition-colors cursor-pointer"
             >
               <RotateCcw className="w-3.5 h-3.5" />
-              <span>Refazer Quiz</span>
+              <span>Refazer Quiz Avaliativo</span>
             </button>
-
-            {isApproved && (
-              <button
-                onClick={onOpenCertificate}
-                className="flex items-center gap-2 px-6 py-2.5 rounded-xl bg-emerald-800 hover:bg-emerald-900 text-white text-xs font-semibold transition-colors shadow-xs cursor-pointer"
-              >
-                <Award className="w-4 h-4 text-emerald-300" />
-                <span>Emitir Certificado Oficial</span>
-              </button>
-            )}
           </div>
 
         </div>
