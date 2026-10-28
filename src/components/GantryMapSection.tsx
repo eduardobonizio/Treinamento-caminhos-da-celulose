@@ -3,9 +3,9 @@ import { MapPin, Navigation, Compass, Filter, CheckCircle2, Info, ChevronRight, 
 
 export interface GantryLocation {
   id: string;
-  code: string; // "FF 01", "FF 02", etc.
+  code: string; // "Pórtico 01", "Pórtico 02", etc.
   number: number;
-  fullName: string; // "FF 01 - BR262 - km 040+450"
+  fullName: string; // "Pórtico 01 - BR262 - km 040+450"
   highway: 'BR-262' | 'MS-040' | 'BR-267' | 'MS-338';
   kmDisplay: string; // "km 040+450"
   city: string; // "Três Lagoas/MS"
@@ -16,10 +16,10 @@ export interface GantryLocation {
 
 export const gantryLocations: GantryLocation[] = [
   {
-    id: 'ff-01',
-    code: 'FF 01',
+    id: 'portico-01',
+    code: 'Pórtico 01',
     number: 1,
-    fullName: 'FF 01 - BR262 - km 040+450',
+    fullName: 'Pórtico 01 - BR262 - km 040+450',
     highway: 'BR-262',
     kmDisplay: 'km 040+450',
     city: 'Três Lagoas/MS',
@@ -28,10 +28,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 670, y: 148 }
   },
   {
-    id: 'ff-02',
-    code: 'FF 02',
+    id: 'portico-02',
+    code: 'Pórtico 02',
     number: 2,
-    fullName: 'FF 02 - BR262 - km 109+500',
+    fullName: 'Pórtico 02 - BR262 - km 109+500',
     highway: 'BR-262',
     kmDisplay: 'km 109+500',
     city: 'Água Clara/MS',
@@ -40,10 +40,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 540, y: 138 }
   },
   {
-    id: 'ff-03',
-    code: 'FF 03',
+    id: 'portico-03',
+    code: 'Pórtico 03',
     number: 3,
-    fullName: 'FF 03 - BR262 - km 204+460',
+    fullName: 'Pórtico 03 - BR262 - km 204+460',
     highway: 'BR-262',
     kmDisplay: 'km 204+460',
     city: 'Ribas do Rio Pardo/MS',
@@ -52,10 +52,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 380, y: 135 }
   },
   {
-    id: 'ff-04',
-    code: 'FF 04',
+    id: 'portico-04',
+    code: 'Pórtico 04',
     number: 4,
-    fullName: 'FF 04 - BR262 - km 288+300',
+    fullName: 'Pórtico 04 - BR262 - km 288+300',
     highway: 'BR-262',
     kmDisplay: 'km 288+300',
     city: 'Campo Grande/MS',
@@ -64,10 +64,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 230, y: 155 }
   },
   {
-    id: 'ff-05',
-    code: 'FF 05',
+    id: 'portico-05',
+    code: 'Pórtico 05',
     number: 5,
-    fullName: 'FF 05 - MS040 - km 045+360',
+    fullName: 'Pórtico 05 - MS040 - km 045+360',
     highway: 'MS-040',
     kmDisplay: 'km 045+360',
     city: 'Campo Grande/MS',
@@ -76,10 +76,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 230, y: 240 }
   },
   {
-    id: 'ff-06',
-    code: 'FF 06',
+    id: 'portico-06',
+    code: 'Pórtico 06',
     number: 6,
-    fullName: 'FF 06 - MS040 - km 216+120',
+    fullName: 'Pórtico 06 - MS040 - km 216+120',
     highway: 'MS-040',
     kmDisplay: 'km 216+120',
     city: 'Santa Rita do Pardo/MS',
@@ -88,10 +88,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 450, y: 285 }
   },
   {
-    id: 'ff-07',
-    code: 'FF 07',
+    id: 'portico-07',
+    code: 'Pórtico 07',
     number: 7,
-    fullName: 'FF 07 - MS338 - km 311+900',
+    fullName: 'Pórtico 07 - MS338 - km 311+900',
     highway: 'MS-338',
     kmDisplay: 'km 311+900',
     city: 'Santa Rita do Pardo/MS',
@@ -100,10 +100,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 520, y: 320 }
   },
   {
-    id: 'ff-08',
-    code: 'FF 08',
+    id: 'portico-08',
+    code: 'Pórtico 08',
     number: 8,
-    fullName: 'FF 08 - BR267 - km 024+500',
+    fullName: 'Pórtico 08 - BR267 - km 024+500',
     highway: 'BR-267',
     kmDisplay: 'km 024+500',
     city: 'Bataguassu/MS',
@@ -112,10 +112,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 670, y: 390 }
   },
   {
-    id: 'ff-09',
-    code: 'FF 09',
+    id: 'portico-09',
+    code: 'Pórtico 09',
     number: 9,
-    fullName: 'FF 09 - BR267 - km 129+100',
+    fullName: 'Pórtico 09 - BR267 - km 129+100',
     highway: 'BR-267',
     kmDisplay: 'km 129+100',
     city: 'Nova Andradina/MS',
@@ -124,10 +124,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 420, y: 372 }
   },
   {
-    id: 'ff-10',
-    code: 'FF 10',
+    id: 'portico-10',
+    code: 'Pórtico 10',
     number: 10,
-    fullName: 'FF 10 - BR267 - km 182+000',
+    fullName: 'Pórtico 10 - BR267 - km 182+000',
     highway: 'BR-267',
     kmDisplay: 'km 182+000',
     city: 'Nova Alvorada do Sul/MS',
@@ -136,10 +136,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 250, y: 350 }
   },
   {
-    id: 'ff-11',
-    code: 'FF 11',
+    id: 'portico-11',
+    code: 'Pórtico 11',
     number: 11,
-    fullName: 'FF 11 - MS040 - km 123+860',
+    fullName: 'Pórtico 11 - MS040 - km 123+860',
     highway: 'MS-040',
     kmDisplay: 'km 123+860',
     city: 'Ribas do Rio Pardo/MS',
@@ -148,10 +148,10 @@ export const gantryLocations: GantryLocation[] = [
     coords: { x: 340, y: 260 }
   },
   {
-    id: 'ff-12',
-    code: 'FF 12',
+    id: 'portico-12',
+    code: 'Pórtico 12',
     number: 12,
-    fullName: 'FF 12 - BR267 - KM 065+750',
+    fullName: 'Pórtico 12 - BR267 - KM 065+750',
     highway: 'BR-267',
     kmDisplay: 'KM 065+750',
     city: 'Anaurilândia/MS',
@@ -181,16 +181,16 @@ export const GantryMapSection: React.FC = () => {
             <span>AGEMS · 12 Pontos de Cobrança</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight mt-1">
-            Localização Oficial dos Pórticos de Pedágio Eletrônico (FF 01 a FF 12)
+            Localização Oficial dos 12 Pontos de Cobrança (Pórticos 01 a 12)
           </h2>
           <div className="w-16 h-1 bg-[#46973A] rounded-full mt-2" />
           <p className="text-sm text-slate-600 mt-2 max-w-2xl">
-            Confira a quilometragem exata com estacas métricas e os municípios de cada pórtico ao longo das rodovias <strong>BR-262, MS-040, BR-267 e MS-338</strong>.
+            A malha concedida conta com <strong>12 pontos de pedágio eletrônico</strong> distribuídos em 870,3 km. Em 2 pontos onde a rodovia se divide, a cobrança é realizada por estruturas bidirecionais (totalizando 14 pórticos físicos instalados).
           </p>
         </div>
 
         {/* Highway Filter Tabs */}
-        <div className="flex items-center gap-1.5 p-1 bg-slate-100 rounded-xl text-xs font-semibold self-start md:self-auto overflow-x-auto max-w-full">
+        <div className="flex flex-wrap items-center gap-1.5 p-1 bg-slate-100 rounded-xl text-xs font-semibold self-start md:self-auto">
           {['TODAS', 'BR-262', 'MS-040', 'BR-267', 'MS-338'].map((hw) => (
             <button
               key={hw}
@@ -391,7 +391,7 @@ export const GantryMapSection: React.FC = () => {
                       fontWeight="bold"
                       fontFamily="monospace"
                     >
-                      {g.code.replace('FF ', '')}
+                      {g.number.toString().padStart(2, '0')}
                     </text>
 
                     {/* Km Tag Label */}
@@ -427,7 +427,7 @@ export const GantryMapSection: React.FC = () => {
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#46973A]" />
-                Pórtico de Pedágio Eletrônico (FF 01 a FF 12)
+                Pórticos de Pedágio Eletrônico (Pórticos 01 a 12)
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-white" />
@@ -516,57 +516,6 @@ export const GantryMapSection: React.FC = () => {
 
         </div>
 
-      </div>
-
-      {/* Complete Official Table matching the user's specification */}
-      <div className="pt-6 border-t border-slate-100">
-        <div className="mb-4 flex items-center justify-between">
-          <div>
-            <span className="text-xs font-bold text-[#1A2B49] uppercase tracking-wider block">
-              Tabela Oficial dos Pórticos · Concessionária Caminhos da Celulose
-            </span>
-            <span className="text-[11px] text-slate-500">
-              Relação completa de todos os 12 pontos com quilometragem e municípios
-            </span>
-          </div>
-          <span className="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded">
-            {filteredGantries.length} pórticos listados
-          </span>
-        </div>
-
-        <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-xs">
-          <table className="w-full text-left text-xs text-slate-700">
-            <thead className="bg-[#1A2B49] text-white text-[11px] uppercase tracking-wider font-mono">
-              <tr>
-                <th className="py-3 px-4">Pórtico</th>
-                <th className="py-3 px-4">Rodovia</th>
-                <th className="py-3 px-4">Município</th>
-              </tr>
-            </thead>
-            <tbody className="divide-y divide-slate-100 bg-white">
-              {filteredGantries.map((g) => (
-                <tr
-                  key={g.id}
-                  onClick={() => setActiveGantry(g)}
-                  className={`hover:bg-slate-50/80 transition-colors cursor-pointer ${
-                    activeGantry.id === g.id ? 'bg-[#46973A]/10 font-semibold' : ''
-                  }`}
-                >
-                  <td className="py-3.5 px-4 font-mono font-bold text-[#1A2B49] flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-[#46973A]" />
-                    <span>{g.fullName}</span>
-                  </td>
-                  <td className="py-3.5 px-4 font-mono font-bold text-[#46973A]">
-                    {g.highway}
-                  </td>
-                  <td className="py-3.5 px-4 font-medium text-slate-700">
-                    {g.city}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
       </div>
 
     </section>

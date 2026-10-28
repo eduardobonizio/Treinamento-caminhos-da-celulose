@@ -16,7 +16,7 @@ export const initialMemoryPairs: MemoryCardPair[] = [
   {
     id: 'mem-3',
     term: 'Art. 209-A do CTB',
-    description: 'Infração grave (5 pontos e R$ 195,23) por não pagar o Free Flow em até 30 dias',
+    description: 'Infração grave (5 pontos e R$ 195,23) por não pagar o pedágio eletrônico em até 30 dias',
     category: 'Regras & CTB'
   },
   {

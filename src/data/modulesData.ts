@@ -4,27 +4,27 @@ export const initialModules: TrainingModule[] = [
   {
     id: 'mod-1',
     order: 1,
-    title: 'Fundamentos do Free Flow & Arquitetura do Pórtico',
-    description: 'Entenda como funciona o pedágio automático sem cancelas na Caminhos da Celulose e a tecnologia instalada nos 14 pórticos da malha rodoviária.',
+    title: 'Fundamentos do Pedágio Eletrônico & Arquitetura do Pórtico',
+    description: 'Entenda como funciona o pedágio automático sem cancelas na Caminhos da Celulose e a tecnologia instalada nos 12 pontos de cobrança da malha rodoviária.',
     estimatedMinutes: 12,
     category: 'Tecnologia',
     sections: [
       {
         id: 'sec-1-1',
-        title: 'O que é o Sistema Free Flow?',
+        title: 'O que é o Sistema de Pedágio Eletrônico?',
         subtitle: 'Eliminação de praças de pedágio físicas e fluxo 100% contínuo',
         content: [
-          'O Free Flow (Fluxo Livre) é o modelo eletrônico de pedágio que extingue completamente as barreiras físicas, cabines de cobrança e cancelas na rodovia.',
+          'O pedágio eletrônico (sem cancelas) é o modelo de cobrança automática que extingue completamente as barreiras físicas, cabines de cobrança e cancelas na rodovia.',
           'Na malha da Concessionária Caminhos da Celulose (Rota da Celulose - cerca de 870 km abrangendo BR-262, BR-267, MS-040, MS-338 e MS-395), os veículos transitam na velocidade regulamentar da via sem necessidade de redução brusca de velocidade ou parada.',
           'Isso reduz emissões de CO2, previne acidentes por engavetamento nas praças convencionais, diminui o desgaste dos freios dos caminhões bitrem e otimiza o escoamento logístico da celulose e grãos de Mato Grosso do Sul.'
         ],
         keyPoints: [
           '870,3 km de malha concedida na Rota da Celulose',
-          '14 pórticos distribuídos em 12 pontos estratégicos de cobrança',
+          '12 pontos de cobrança (totalizando 14 pórticos físicos com 2 pontos bidirecionais onde as pistas se dividem)',
           'Velocidade contínua da via (até 100-110 km/h) sem parada ou afunilamento de pista'
         ],
         checklist: [
-          'Compreendi a diferença entre praça convencional de pedágio e pórtico Free Flow',
+          'Compreendi a diferença entre praça convencional de pedágio e pórtico de pedágio eletrônico',
           'Identifiquei as rodovias sob gestão da Caminhos da Celulose (BR-262, BR-267, MS-040, MS-338, MS-395)'
         ]
       },
@@ -61,7 +61,7 @@ export const initialModules: TrainingModule[] = [
         title: 'A Missão do CCA (Centro de Controle de Arrecadação)',
         subtitle: 'O coração da auditoria e garantia da receita da concessionária',
         content: [
-          'O CCA é o centro operacional onde todos os registros gerados nos 14 pórticos são consolidados, auditados e processados.',
+          'O CCA é o centro operacional onde todos os registros gerados nos 12 pontos de cobrança são consolidados, auditados e processados.',
           'A grande maioria das passagens com TAG ativa é conciliada automaticamente em frações de segundo pelo sistema. No entanto, o papel humano do operador é insubstituível na triagem de eventos de exceção.',
           'Os operadores do CCA analisam lotes de passagens onde o OCR obteve índice de confiança abaixo da margem de segurança (por exemplo, placas sujas de barro, caracteres desgastados, reboques ou eixos erguidos).'
         ],
@@ -119,7 +119,7 @@ export const initialModules: TrainingModule[] = [
         title: 'O Prazo Legal de 30 Dias e o Artigo 209-A do CTB',
         subtitle: 'O que a legislação brasileira e a AGEMS determinam',
         content: [
-          'Com a modernização do Código de Trânsito Brasileiro e a regulamentação do Conselho Nacional de Trânsito (CONTRAN), o prazo para o usuário sem TAG quitar a tarifa do Free Flow foi estabelecido em até 30 (trinta) dias corridos a contar da data e hora da passagem.',
+          'Com a modernização do Código de Trânsito Brasileiro e a regulamentação do Conselho Nacional de Trânsito (CONTRAN), o prazo para o usuário sem TAG quitar a tarifa do pedágio eletrônico foi estabelecido em até 30 (trinta) dias corridos a contar da data e hora da passagem.',
           'Se o condutor NÃO realizar o pagamento dentro desse prazo de 30 dias, a passagem é caracterizada juridicamente como Evasão de Pedágio.',
           'A concessionária é obrigada a reportar a infração ao órgão fiscalizador de trânsito competente (AGEMS / DETRAN-MS / PRF). A infração prevista no Art. 209-A do CTB é considerada GRAVE, com aplicação de multa no valor de R$ 195,23 e 5 pontos na Carteira Nacional de Habilitação (CNH), além de continuar devendo a tarifa do pedágio à concessionária.'
         ],

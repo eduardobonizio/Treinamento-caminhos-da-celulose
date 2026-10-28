@@ -3,7 +3,7 @@ import { Badge } from '../types';
 export const initialBadges: Badge[] = [
   {
     id: 'badge-welcome',
-    title: 'Recruta do Free Flow',
+    title: 'Recruta do Pedágio Eletrônico',
     description: 'Iniciou a jornada de capacitação técnica na Caminhos da Celulose.',
     iconName: 'Sparkles',
     conditionText: 'Concluir o Módulo 1 de Fundamentos'
@@ -25,7 +25,7 @@ export const initialBadges: Badge[] = [
   {
     id: 'badge-quiz-champion',
     title: 'Gabarito da Rota da Celulose',
-    description: 'Alcançou nota superior a 80% na prova oficial de avaliação do Free Flow.',
+    description: 'Alcançou nota superior a 80% na prova oficial de avaliação do pedágio eletrônico.',
     iconName: 'Award',
     conditionText: 'Atingir 80%+ de aproveitamento no Quiz Oficial'
   },

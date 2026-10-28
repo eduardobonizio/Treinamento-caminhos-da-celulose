@@ -220,7 +220,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
                   Certificado de Capacitação Técnica
                 </h1>
                 <p className="text-[10px] sm:text-xs font-medium text-slate-500 uppercase tracking-widest mt-0.5">
-                  SISTEMA DE LIVRE PASSAGEM · FREE FLOW
+                  SISTEMA DE LIVRE PASSAGEM · PEDÁGIO ELETRÔNICO
                 </p>
               </div>
 
@@ -240,7 +240,7 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
               {/* Statement */}
               <div className="relative z-10 max-w-xl mx-auto text-[11px] text-slate-700 leading-relaxed space-y-1">
                 <p>
-                  Concluiu com aproveitamento o programa de capacitação em <strong>Tecnologia de Pórticos Free Flow, Procedimentos de Triagem do CCA, Verificação de Eixos Suspensos, Isenções e Legislação do Artigo 209-A do CTB / AGEMS</strong>.
+                  Concluiu com aproveitamento o programa de capacitação em <strong>Tecnologia de Pórticos de Pedágio Eletrônico, Procedimentos de Triagem do CCA, Verificação de Eixos Suspensos, Isenções e Legislação do Artigo 209-A do CTB / AGEMS</strong>.
                 </p>
                 <p className="font-mono text-[10px] text-slate-500 pt-1">
                   Carga Horária: 4 Horas · Aproveitamento na Avaliação: {profile.quizBestScore > 0 ? `${profile.quizBestScore}%` : '100%'}

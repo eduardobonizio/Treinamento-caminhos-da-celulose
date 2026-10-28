@@ -1,22 +1,17 @@
 import React from 'react';
-import { TabType, ArenaSubTab } from '../types';
+import { ArenaSubTab } from '../types';
 import { FreeFlowInfographic } from './FreeFlowInfographic';
 import { GantryMapSection } from './GantryMapSection';
-import { BookOpen, Layers, ShieldCheck, ArrowRight, MapPin, Zap, Clock, FileCheck } from 'lucide-react';
+import { MapPin } from 'lucide-react';
 
 interface HomeOverviewProps {
-  onNavigateToTraining: () => void;
-  onNavigateToArena: (subTab?: ArenaSubTab) => void;
-  completedModulesCount: number;
-  totalModulesCount: number;
+  onNavigateToTraining?: () => void;
+  onNavigateToArena?: (subTab?: ArenaSubTab) => void;
+  completedModulesCount?: number;
+  totalModulesCount?: number;
 }
 
-export const HomeOverview: React.FC<HomeOverviewProps> = ({
-  onNavigateToTraining,
-  onNavigateToArena,
-  completedModulesCount,
-  totalModulesCount
-}) => {
+export const HomeOverview: React.FC<HomeOverviewProps> = () => {
   return (
     <div className="space-y-12 pb-16">
       
@@ -49,28 +44,22 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
             <span className="w-2 h-2 rounded-full bg-white/40" />
           </div>
 
-          <div className="flex flex-wrap items-center gap-4">
-            <button
-              onClick={onNavigateToTraining}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#46973A] hover:bg-[#387A2E] text-white font-bold text-sm transition-all shadow-md cursor-pointer"
-            >
-              <BookOpen className="w-4 h-4" />
-              <span>Acessar Módulos de Estudo</span>
-              <ArrowRight className="w-4 h-4" />
-            </button>
-
-            <button
-              onClick={() => onNavigateToArena('memory')}
-              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition-all cursor-pointer backdrop-blur-xs"
-            >
-              <Layers className="w-4 h-4 text-[#46973A]" />
-              <span>Arena & Jogos de Fixação</span>
-            </button>
+          {/* Quick Info Badges */}
+          <div className="flex flex-wrap gap-2 text-xs font-medium">
+            <span className="bg-white/10 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-white/10 text-slate-200">
+              Operação Ininterrupta 24h
+            </span>
+            <span className="bg-white/10 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-white/10 text-slate-200">
+              Auditoria Automática & Manual
+            </span>
+            <span className="bg-white/10 backdrop-blur-xs px-3 py-1.5 rounded-lg border border-white/10 text-slate-200">
+              Regulação Oficial AGEMS
+            </span>
           </div>
         </div>
 
-        {/* Hero Proof Metrics Strip */}
-        <div className="mt-12 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+        {/* Floating Quick Key Metrics */}
+        <div className="mt-10 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
           <div>
             <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-[#46973A] tabular-nums">
               870,3 km
@@ -82,10 +71,10 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
 
           <div>
             <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-white tabular-nums">
-              14 Pórticos
+              12 Pontos
             </span>
             <span className="text-xs text-slate-300 mt-1 block">
-              Pontos de leitura sem cancelas físicas
+              Pontos de cobrança eletrônica
             </span>
           </div>
 
@@ -103,131 +92,13 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
               24h / 7d
             </span>
             <span className="text-xs text-slate-300 mt-1 block">
-              Auditoria contínua no CCA
+              Monitoramento pelo CCA
             </span>
           </div>
         </div>
       </section>
 
-      {/* About Section Styled exactly like official screenshot */}
-      <section className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-xs">
-        <div className="max-w-3xl mb-8">
-          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight">
-            Sobre a Caminhos da Celulose & o Pedágio Eletrônico
-          </h2>
-          <div className="w-14 h-1 bg-[#46973A] rounded-full mt-2.5 mb-3" />
-          <h3 className="text-base font-semibold text-[#1A2B49]/80">
-            Compromisso com a segurança viária e o desenvolvimento sustentável do Mato Grosso do Sul.
-          </h3>
-          <p className="text-sm text-slate-600 mt-3 leading-relaxed">
-            A Concessionária Caminhos da Celulose é responsável pela administração, recuperação e modernização de 870,3 km de rodovias estaduais e federais. Nosso objetivo é transformar a experiência do usuário através da tecnologia de pedágio eletrônico (sem cancelas), serviços de atendimento e obras de infraestrutura que impulsionam o escoamento florestal e o agronegócio sul-mato-grossense.
-          </p>
-        </div>
-
-        {/* Interactive Gantry Component */}
-        <div>
-          <div className="mb-4">
-            <span className="text-xs font-bold text-[#46973A] uppercase tracking-wider block">
-              Tecnologia Embarcada nos Pórticos
-            </span>
-            <h3 className="text-xl font-bold text-[#1A2B49] mt-0.5">
-              Como os Sensores do Pedágio Eletrônico se Comunicam com o CCA
-            </h3>
-          </div>
-          <FreeFlowInfographic />
-        </div>
-      </section>
-
-      {/* Map of All 14 Gantries with exact KMs on Rota da Celulose */}
-      <GantryMapSection />
-
-      {/* Quick Navigation Cards: 3 Interactive Learning Pillars */}
-      <section className="grid grid-cols-1 md:grid-cols-3 gap-6">
-        
-        {/* Card 1: Capacitação Teórica */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between hover:border-slate-300 transition-all shadow-xs">
-          <div>
-            <div className="w-10 h-10 rounded-xl bg-emerald-50 text-emerald-800 flex items-center justify-center mb-4">
-              <BookOpen className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900">
-              Trilha de Capacitação CCA
-            </h3>
-            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              4 módulos dinâmicos detalhando sensores, POPs de triagem, verificação de eixos suspensos e legislação de evasão (Art. 209-A CTB).
-            </p>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-xs text-slate-500 font-mono">
-              Progresso: {completedModulesCount}/{totalModulesCount}
-            </span>
-            <button
-              onClick={onNavigateToTraining}
-              className="text-xs font-bold text-emerald-800 hover:text-emerald-950 flex items-center gap-1 cursor-pointer"
-            >
-              <span>Estudar</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Card 2: Jogo da Memória de Termos */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between hover:border-slate-300 transition-all shadow-xs">
-          <div>
-            <div className="w-10 h-10 rounded-xl bg-amber-50 text-amber-800 flex items-center justify-center mb-4">
-              <Layers className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900">
-              Jogo da Memória Operacional
-            </h3>
-            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              Associe os termos técnicos do pedágio eletrônico às suas definições reais. Cada par correto desaparece do tabuleiro! Treine sua velocidade.
-            </p>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-xs text-slate-500">
-              Descarte de pares
-            </span>
-            <button
-              onClick={() => onNavigateToArena('memory')}
-              className="text-xs font-bold text-amber-800 hover:text-amber-950 flex items-center gap-1 cursor-pointer"
-            >
-              <span>Jogar</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-
-        {/* Card 3: Simulador de Casos Práticos */}
-        <div className="bg-white rounded-2xl border border-slate-200 p-6 flex flex-col justify-between hover:border-slate-300 transition-all shadow-xs">
-          <div>
-            <div className="w-10 h-10 rounded-xl bg-sky-50 text-sky-800 flex items-center justify-center mb-4">
-              <ShieldCheck className="w-5 h-5" />
-            </div>
-            <h3 className="text-lg font-bold text-slate-900">
-              Simulador de Ocorrências CCA
-            </h3>
-            <p className="text-xs text-slate-600 mt-2 leading-relaxed">
-              Analise cenários reais de triagem: placas encobertas, ambulâncias, eixos suspensos e tome a decisão correta de acordo com o POP.
-            </p>
-          </div>
-          <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-            <span className="text-xs text-slate-500">
-              Casos Reais do POP
-            </span>
-            <button
-              onClick={() => onNavigateToArena('simulator')}
-              className="text-xs font-bold text-sky-800 hover:text-sky-950 flex items-center gap-1 cursor-pointer"
-            >
-              <span>Simular</span>
-              <ArrowRight className="w-3.5 h-3.5" />
-            </button>
-          </div>
-        </div>
-
-      </section>
-
-      {/* Highway Network Matrix: Caminhos da Celulose */}
+      {/* Highway Network Matrix: Caminhos da Celulose (Placed immediately below hero section as requested) */}
       <section className="bg-white rounded-2xl border border-slate-200 p-8 shadow-xs">
         <div className="max-w-2xl mb-6">
           <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
@@ -295,9 +166,9 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
 
           <div className="p-4 rounded-xl border border-dashed border-emerald-300 bg-emerald-50/40 flex flex-col justify-between">
             <div>
-              <span className="text-xs font-bold text-emerald-900 block">Total de 14 Pórticos</span>
+              <span className="text-xs font-bold text-emerald-900 block">Total de 12 Pontos de Cobrança</span>
               <span className="text-xs text-emerald-700 mt-1 block">
-                Monitorados ininterruptamente pelo Centro de Controle de Arrecadação (CCA).
+                Distribuídos em 870,3 km de rodovias (incluindo 2 pontos com estruturas bidirecionais onde as pistas se dividem, totalizando 14 pórticos físicos).
               </span>
             </div>
             <span className="text-[11px] font-mono text-emerald-800 font-semibold mt-2">
@@ -307,6 +178,38 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
 
         </div>
       </section>
+
+      {/* About Section Styled exactly like official screenshot */}
+      <section className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-xs">
+        <div className="max-w-3xl mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight">
+            Sobre a Caminhos da Celulose & o Pedágio Eletrônico
+          </h2>
+          <div className="w-14 h-1 bg-[#46973A] rounded-full mt-2.5 mb-3" />
+          <h3 className="text-base font-semibold text-[#1A2B49]/80">
+            Compromisso com a segurança viária e o desenvolvimento sustentável do Mato Grosso do Sul.
+          </h3>
+          <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+            A Concessionária Caminhos da Celulose é responsável pela administração, recuperação e modernização de 870,3 km de rodovias estaduais e federais. Nosso objetivo é transformar a experiência do usuário através da tecnologia de pedágio eletrônico (sem cancelas), serviços de atendimento e obras de infraestrutura que impulsionam o escoamento florestal e o agronegócio sul-mato-grossense.
+          </p>
+        </div>
+
+        {/* Interactive Gantry Component */}
+        <div>
+          <div className="mb-4">
+            <span className="text-xs font-bold text-[#46973A] uppercase tracking-wider block">
+              Tecnologia Embarcada nos Pórticos
+            </span>
+            <h3 className="text-xl font-bold text-[#1A2B49] mt-0.5">
+              Como os Sensores do Pedágio Eletrônico se Comunicam com o CCA
+            </h3>
+          </div>
+          <FreeFlowInfographic />
+        </div>
+      </section>
+
+      {/* Map of All 12 Payment Points on Rota da Celulose */}
+      <GantryMapSection />
 
     </div>
   );

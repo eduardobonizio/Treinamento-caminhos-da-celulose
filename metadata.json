@@ -1,6 +1,6 @@
 {
   "name": "Portal CCA · Caminhos da Celulose",
-  "description": "Portal corporativo de capacitação em Free Flow e operações de CCA da Concessionária Caminhos da Celulose, com módulos educativos, simulador de ocorrências, jogo da memória e quizzes avaliativos.",
+  "description": "Portal corporativo de capacitação em Pedágio Eletrônico e operações de CCA da Concessionária Caminhos da Celulose, com módulos educativos, simulador de ocorrências, jogo da memória e quizzes avaliativos.",
   "requestFramePermissions": [],
   "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
 }

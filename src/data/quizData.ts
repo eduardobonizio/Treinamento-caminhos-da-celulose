@@ -3,7 +3,7 @@ import { QuizQuestion } from '../types';
 export const initialQuizQuestions: QuizQuestion[] = [
   {
     id: 'q-1',
-    question: 'Qual é a principal característica operacional do sistema Free Flow na Concessionária Caminhos da Celulose?',
+    question: 'Qual é a principal característica operacional do sistema de pedágio eletrônico na Concessionária Caminhos da Celulose?',
     options: [
       'Cobrança eletrônica automática por pórticos sem cabines de pedágio ou cancelas físicas',
       'Praças com cancelas automáticas que abrem apenas para veículos com TAG',
@@ -11,13 +11,13 @@ export const initialQuizQuestions: QuizQuestion[] = [
       'Isenção total de tarifa para todos os veículos que trafegam na Rota da Celulose'
     ],
     correctIndex: 0,
-    explanation: 'O Free Flow elimina cancelas e cabines físicas, realizando a cobrança 100% eletrônica em velocidade contínua da via por meio de pórticos aéreos.',
+    explanation: 'O pedágio eletrônico elimina cancelas e cabines físicas, realizando a cobrança 100% eletrônica em velocidade contínua da via por meio de pórticos aéreos.',
     category: 'Tecnologia',
     difficulty: 'Fácil'
   },
   {
     id: 'q-2',
-    question: 'Qual é o prazo regulamentar que um motorista sem TAG possui para pagar a tarifa do Free Flow antes de cometer infração de trânsito?',
+    question: 'Qual é o prazo regulamentar que um motorista sem TAG possui para pagar a tarifa do pedágio eletrônico antes de cometer infração de trânsito?',
     options: [
       'Até 24 horas após a passagem',
       'Até 7 dias corridos',
@@ -25,7 +25,7 @@ export const initialQuizQuestions: QuizQuestion[] = [
       'Até o final do ano vigente'
     ],
     correctIndex: 2,
-    explanation: 'Conforme a regulamentação do CONTRAN e da AGEMS, o prazo legal para o pagamento da tarifa do Free Flow por veículos sem TAG é de até 30 dias corridos.',
+    explanation: 'Conforme a regulamentação do CONTRAN e da AGEMS, o prazo legal para o pagamento da tarifa do pedágio eletrônico por veículos sem TAG é de até 30 dias corridos.',
     category: 'Regulatório',
     difficulty: 'Fácil'
   },
@@ -39,7 +39,7 @@ export const initialQuizQuestions: QuizQuestion[] = [
       'Não há previsão de multa, apenas cobrança com juros simples'
     ],
     correctIndex: 1,
-    explanation: 'O Art. 209-A do Código de Trânsito Brasileiro tipifica como infração grave a evasão de pedágio em sistemas Free Flow, acarretando multa de R$ 195,23 e 5 pontos na CNH.',
+    explanation: 'O Art. 209-A do Código de Trânsito Brasileiro tipifica como infração grave a evasão em sistemas de pedágio eletrônico, acarretando multa de R$ 195,23 e 5 pontos na CNH.',
     category: 'Regulatório',
     difficulty: 'Médio'
   },
@@ -53,7 +53,7 @@ export const initialQuizQuestions: QuizQuestion[] = [
       'NFC de curta distância de 13.56 MHz'
     ],
     correctIndex: 2,
-    explanation: 'As antenas de leitura automática de TAG instaladas nos pórticos do Free Flow no Brasil utilizam tecnologia RFID / DSRC na frequência de 915 MHz.',
+    explanation: 'As antenas de leitura automática de TAG instaladas nos pórticos do pedágio eletrônico no Brasil utilizam tecnologia RFID / DSRC na frequência de 915 MHz.',
     category: 'Tecnologia',
     difficulty: 'Médio'
   },
@@ -76,7 +76,7 @@ export const initialQuizQuestions: QuizQuestion[] = [
     question: 'Quais rodovias fazem parte do lote concedido à Concessionária Caminhos da Celulose (Rota da Celulose) em Mato Grosso do Sul?',
     options: [
       'Apenas a BR-101 e BR-116',
-      'BR-262, BR-267, MS-040, MS-338 e MS-395 (totalizando ~870 km com 14 pórticos)',
+      'BR-262, BR-267, MS-040, MS-338 e MS-395 (totalizando ~870 km com 12 pontos de cobrança)',
       'Apenas vias urbanas de Campo Grande',
       'Trechos exclusivos do estado de São Paulo'
     ],

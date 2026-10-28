@@ -103,7 +103,7 @@ export const TimedQuiz: React.FC<TimedQuizProps> = ({
             Avaliação Oficial de Desempenho
           </span>
           <span className="text-sm font-semibold text-slate-800">
-            Quiz Avaliativo do Free Flow & Operações de CCA
+            Quiz Avaliativo de Pedágio Eletrônico & Operações de CCA
           </span>
         </div>
 
@@ -243,7 +243,7 @@ export const TimedQuiz: React.FC<TimedQuizProps> = ({
             </h3>
             <p className="text-sm text-slate-500 mt-1">
               {isApproved
-                ? 'Parabéns! Você demonstrou domínio sobre os procedimentos do Free Flow e regulação da AGEMS.'
+                ? 'Parabéns! Você demonstrou domínio sobre os procedimentos do pedágio eletrônico e regulação da AGEMS.'
                 : 'Você precisa de 70% de acertos para atingir a nota mínima de aprovação. Revise os módulos e tente novamente.'}
             </p>
           </div>
