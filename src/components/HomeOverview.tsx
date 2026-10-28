@@ -19,53 +19,62 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
   return (
     <div className="space-y-12 pb-16">
       
-      {/* Hero Section */}
-      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-emerald-950 via-slate-900 to-slate-900 text-white p-8 sm:p-12 border border-slate-800 shadow-lg">
-        {/* Decorative background glow */}
-        <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-600/10 rounded-full blur-3xl pointer-events-none" />
+      {/* Hero Section matching official website style */}
+      <section className="relative overflow-hidden rounded-3xl bg-gradient-to-r from-[#1A2B49] via-[#16243E] to-[#0D182B] text-white p-8 sm:p-14 border border-slate-200/20 shadow-xl">
+        {/* Subtle decorative highway curve glow */}
+        <div className="absolute -top-24 -right-24 w-96 h-96 bg-[#46973A]/20 rounded-full blur-3xl pointer-events-none" />
+        <div className="absolute -bottom-24 -left-24 w-80 h-80 bg-[#1A2B49]/40 rounded-full blur-3xl pointer-events-none" />
         
         <div className="relative z-10 max-w-3xl">
-          <div className="flex items-center gap-2 text-xs font-semibold text-emerald-400 tracking-wider uppercase mb-3">
+          <div className="inline-flex items-center gap-2 px-3 py-1 rounded-lg bg-white/10 backdrop-blur-xs text-xs font-semibold text-emerald-300 tracking-wider uppercase mb-4 border border-white/10">
             <span>Concessionária Caminhos da Celulose</span>
             <span>·</span>
-            <span>Centro de Controle de Arrecadação (CCA)</span>
+            <span>CCA</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-extrabold tracking-tight text-white leading-tight">
-            Capacitação Operacional em Free Flow
+          {/* Slogan from official website */}
+          <h1 className="text-3xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
+            Sua companhia para chegar lá
           </h1>
 
-          <p className="mt-4 text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-            Bem-vindo ao portal de formação técnica da Rota da Celulose. O sistema de pedágio 100% automático e sem cancelas está transformando as rodovias de Mato Grosso do Sul — e o papel do operador do CCA é fundamental para garantir fluidez, justiça tarifária e segurança de dados.
+          <p className="mt-4 text-base sm:text-lg text-slate-200 leading-relaxed font-normal max-w-2xl">
+            Segurança, compromisso com o desenvolvimento sustentável e inovação em cada quilômetro da sua viagem. Conheça as diretrizes operacionais do pedágio 100% automático (Free Flow) na Rota da Celulose.
           </p>
 
-          <div className="mt-8 flex flex-wrap items-center gap-4">
+          {/* Interactive Carousel Dots like official site */}
+          <div className="flex items-center gap-2 my-6">
+            <span className="w-2 h-2 rounded-full bg-white/40" />
+            <span className="w-6 h-2 rounded-full bg-[#46973A]" />
+            <span className="w-2 h-2 rounded-full bg-white/40" />
+          </div>
+
+          <div className="flex flex-wrap items-center gap-4">
             <button
               onClick={onNavigateToTraining}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-sm transition-all shadow-md cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-[#46973A] hover:bg-[#387A2E] text-white font-bold text-sm transition-all shadow-md cursor-pointer"
             >
               <BookOpen className="w-4 h-4" />
-              <span>Iniciar Módulos de Estudo</span>
+              <span>Acessar Módulos de Estudo</span>
               <ArrowRight className="w-4 h-4" />
             </button>
 
             <button
               onClick={() => onNavigateToArena('memory')}
-              className="flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/80 hover:bg-slate-700 text-white font-semibold text-sm border border-slate-700 transition-all cursor-pointer"
+              className="flex items-center gap-2 px-6 py-3.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-semibold text-sm border border-white/20 transition-all cursor-pointer backdrop-blur-xs"
             >
-              <Layers className="w-4 h-4 text-emerald-400" />
-              <span>Acessar Jogos & Simulador</span>
+              <Layers className="w-4 h-4 text-[#46973A]" />
+              <span>Arena & Jogos de Fixação</span>
             </button>
           </div>
         </div>
 
         {/* Hero Proof Metrics Strip */}
-        <div className="mt-12 pt-8 border-t border-slate-800/80 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
+        <div className="mt-12 pt-8 border-t border-white/10 grid grid-cols-2 md:grid-cols-4 gap-6 text-left">
           <div>
-            <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-emerald-400 tabular-nums">
+            <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-[#46973A] tabular-nums">
               870,3 km
             </span>
-            <span className="text-xs text-slate-400 mt-1 block">
+            <span className="text-xs text-slate-300 mt-1 block">
               Malha concedida na Rota da Celulose
             </span>
           </div>
@@ -74,8 +83,8 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
             <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-white tabular-nums">
               14 Pórticos
             </span>
-            <span className="text-xs text-slate-400 mt-1 block">
-              Pontos de leitura eletrônica sem cancelas
+            <span className="text-xs text-slate-300 mt-1 block">
+              Pontos de leitura sem cancelas físicas
             </span>
           </div>
 
@@ -83,33 +92,49 @@ export const HomeOverview: React.FC<HomeOverviewProps> = ({
             <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-amber-400 tabular-nums">
               30 Dias
             </span>
-            <span className="text-xs text-slate-400 mt-1 block">
+            <span className="text-xs text-slate-300 mt-1 block">
               Prazo legal para condutores sem TAG
             </span>
           </div>
 
           <div>
-            <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-sky-400 tabular-nums">
+            <span className="block text-2xl sm:text-3xl font-extrabold font-mono text-sky-300 tabular-nums">
               24h / 7d
             </span>
-            <span className="text-xs text-slate-400 mt-1 block">
-              Auditoria e triagem contínua no CCA
+            <span className="text-xs text-slate-300 mt-1 block">
+              Auditoria contínua no CCA
             </span>
           </div>
         </div>
       </section>
 
-      {/* Interactive Gantry Component */}
-      <section>
-        <div className="mb-4">
-          <span className="text-xs font-bold text-emerald-800 uppercase tracking-wider block">
-            Tecnologia Embarcada
-          </span>
-          <h2 className="text-2xl font-bold text-slate-900 tracking-tight mt-1">
-            Como os Sensores do Free Flow se Comunicam com o CCA
+      {/* About Section Styled exactly like official screenshot */}
+      <section className="bg-white rounded-3xl border border-slate-200 p-8 sm:p-10 shadow-xs">
+        <div className="max-w-3xl mb-8">
+          <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight">
+            Sobre a Caminhos da Celulose & o Free Flow
           </h2>
+          <div className="w-14 h-1 bg-[#46973A] rounded-full mt-2.5 mb-3" />
+          <h3 className="text-base font-semibold text-[#1A2B49]/80">
+            Compromisso com a segurança viária e o desenvolvimento sustentável do Mato Grosso do Sul.
+          </h3>
+          <p className="text-sm text-slate-600 mt-3 leading-relaxed">
+            A Concessionária Caminhos da Celulose é responsável pela administração, recuperação e modernização de 870,3 km de rodovias estaduais e federais. Nosso objetivo é transformar a experiência do usuário através de tecnologia de livre passagem (Free Flow), serviços de atendimento e obras de infraestrutura que impulsionam o escoamento florestal e o agronegócio sul-mato-grossense.
+          </p>
         </div>
-        <FreeFlowInfographic />
+
+        {/* Interactive Gantry Component */}
+        <div>
+          <div className="mb-4">
+            <span className="text-xs font-bold text-[#46973A] uppercase tracking-wider block">
+              Tecnologia Embarcada nos Pórticos
+            </span>
+            <h3 className="text-xl font-bold text-[#1A2B49] mt-0.5">
+              Como os Sensores do Free Flow se Comunicam com o CCA
+            </h3>
+          </div>
+          <FreeFlowInfographic />
+        </div>
       </section>
 
       {/* Quick Navigation Cards: 3 Interactive Learning Pillars */}

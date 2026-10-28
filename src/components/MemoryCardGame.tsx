@@ -285,16 +285,18 @@ export const MemoryCardGame: React.FC<MemoryCardGameProps> = ({
                       : 'border-slate-200 hover:border-amber-400 hover:shadow-md'
                   }`}
                 >
-                  {/* Card Back (Facedown - Logo / Free Flow Symbol) */}
-                  <div className="absolute inset-0 w-full h-full bg-gradient-to-br from-slate-900 to-emerald-950 text-white rounded-xl p-4 flex flex-col items-center justify-center backface-hidden">
-                    <div className="w-9 h-9 rounded-full bg-emerald-800/60 border border-emerald-500/40 flex items-center justify-center mb-2">
-                      <HelpCircle className="w-5 h-5 text-emerald-300" />
-                    </div>
-                    <span className="text-xs font-bold tracking-wider text-slate-200 uppercase">
-                      Caminhos
-                    </span>
-                    <span className="text-[10px] text-emerald-400 font-mono">
-                      FREE FLOW
+                  {/* Card Back (Facedown - Official Logo) */}
+                  <div className="absolute inset-0 w-full h-full bg-[#1A2B49] text-white rounded-xl p-3 flex flex-col items-center justify-center backface-hidden border border-slate-700/50 shadow-inner">
+                    <img
+                      src="./assets/aistudio/logo_caminhos_da_celulose_861efee6.jpeg"
+                      alt="Caminhos da Celulose"
+                      className="h-10 w-auto max-w-[130px] object-contain bg-white rounded-lg p-1.5 shadow-sm mb-2"
+                      onError={(e) => {
+                        (e.target as HTMLImageElement).src = '/assets/aistudio/logo_caminhos_da_celulose_861efee6.jpeg';
+                      }}
+                    />
+                    <span className="text-[10px] text-[#46973A] font-mono font-bold tracking-wider">
+                      FREE FLOW · CCA
                     </span>
                   </div>
 

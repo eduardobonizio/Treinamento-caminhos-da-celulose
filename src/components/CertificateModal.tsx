@@ -62,23 +62,20 @@ export const CertificateModal: React.FC<CertificateModalProps> = ({
             <Award className="w-96 h-96 text-emerald-950" />
           </div>
 
-          {/* Header */}
+          {/* Header with Official Logo */}
           <div className="relative z-10 flex flex-col items-center">
-            {profile.companyLogoUrl ? (
-              <img
-                src={profile.companyLogoUrl}
-                alt="Logo"
-                className="h-12 w-auto max-w-[160px] object-contain mb-3"
-              />
-            ) : (
-              <div className="w-12 h-12 rounded-xl bg-emerald-800 text-white flex items-center justify-center font-bold text-lg mb-2 shadow-sm">
-                CC
-              </div>
-            )}
-            <h2 className="text-xs font-bold uppercase tracking-widest text-emerald-900 font-mono">
+            <img
+              src={profile.companyLogoUrl || './assets/aistudio/logo_caminhos_da_celulose_861efee6.jpeg'}
+              alt="Concessionária Caminhos da Celulose"
+              className="h-16 w-auto max-w-[220px] object-contain mb-3"
+              onError={(e) => {
+                (e.target as HTMLImageElement).src = '/assets/aistudio/logo_caminhos_da_celulose_861efee6.jpeg';
+              }}
+            />
+            <h2 className="text-xs font-bold uppercase tracking-widest text-[#1A2B49] font-mono">
               CONCESSIONÁRIA CAMINHOS DA CELULOSE S.A.
             </h2>
-            <span className="text-[11px] text-slate-500 uppercase tracking-wider mt-0.5">
+            <span className="text-[11px] font-semibold text-[#46973A] uppercase tracking-wider mt-0.5">
               CENTRO DE CONTROLE DE ARRECADAÇÃO · CCA
             </span>
           </div>
