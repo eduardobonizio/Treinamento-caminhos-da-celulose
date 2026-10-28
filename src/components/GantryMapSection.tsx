@@ -1,157 +1,163 @@
 import React, { useState } from 'react';
-import { MapPin, Navigation, Compass, Filter, CheckCircle2, Info, ChevronRight } from 'lucide-react';
+import { MapPin, Navigation, Compass, Filter, CheckCircle2, Info, ChevronRight, Layers } from 'lucide-react';
 
 export interface GantryLocation {
   id: string;
+  code: string; // "FF 01", "FF 02", etc.
   number: number;
+  fullName: string; // "FF 01 - BR262 - km 040+450"
   highway: 'BR-262' | 'MS-040' | 'BR-267' | 'MS-338';
-  km: number;
-  stretch: string;
-  cities: string;
+  kmDisplay: string; // "km 040+450"
+  city: string; // "Três Lagoas/MS"
   gantriesCount: number;
   description: string;
   coords: { x: number; y: number }; // Relative coordinates for SVG map (0-800 x 0-480)
 }
 
 export const gantryLocations: GantryLocation[] = [
-  // BR-262 (Três Lagoas -> Água Clara -> Ribas do Rio Pardo -> Campo Grande)
   {
-    id: 'g-262-1',
+    id: 'ff-01',
+    code: 'FF 01',
     number: 1,
+    fullName: 'FF 01 - BR262 - km 040+450',
     highway: 'BR-262',
-    km: 39,
-    stretch: 'Entre Três Lagoas e Água Clara',
-    cities: 'Três Lagoas · Água Clara',
+    kmDisplay: 'km 040+450',
+    city: 'Três Lagoas/MS',
     gantriesCount: 1,
-    description: 'Pórtico próximo ao polo industrial de Três Lagoas. Monitora alto fluxo de caminhões florestais e cargas industriais.',
-    coords: { x: 680, y: 150 }
+    description: 'Pórtico localizado no km 040+450 da BR-262, no município de Três Lagoas/MS. Monitora intenso tráfego florestal e industrial no polo leste.',
+    coords: { x: 670, y: 148 }
   },
   {
-    id: 'g-262-2',
+    id: 'ff-02',
+    code: 'FF 02',
     number: 2,
+    fullName: 'FF 02 - BR262 - km 109+500',
     highway: 'BR-262',
-    km: 104,
-    stretch: 'Entre Três Lagoas e Água Clara',
-    cities: 'Água Clara',
+    kmDisplay: 'km 109+500',
+    city: 'Água Clara/MS',
     gantriesCount: 1,
-    description: 'Ponto estratégico intermediário no corredor leste de Mato Grosso do Sul.',
-    coords: { x: 550, y: 140 }
+    description: 'Pórtico no km 109+500 da BR-262, no município de Água Clara/MS. Ponto estratégico no escoamento de madeira de eucalipto.',
+    coords: { x: 540, y: 138 }
   },
   {
-    id: 'g-262-3',
+    id: 'ff-03',
+    code: 'FF 03',
     number: 3,
+    fullName: 'FF 03 - BR262 - km 204+460',
     highway: 'BR-262',
-    km: 207,
-    stretch: 'Entre Água Clara e Ribas do Rio Pardo',
-    cities: 'Água Clara · Ribas do Rio Pardo',
+    kmDisplay: 'km 204+460',
+    city: 'Ribas do Rio Pardo/MS',
     gantriesCount: 1,
-    description: 'Trecho de aproximação do grande polo de celulose em Ribas do Rio Pardo. Elevado tráfego de tritrens e bitrens.',
-    coords: { x: 390, y: 135 }
+    description: 'Pórtico no km 204+460 da BR-262, em Ribas do Rio Pardo/MS. Corredor essencial de acesso ao grande complexo fabril de celulose.',
+    coords: { x: 380, y: 135 }
   },
   {
-    id: 'g-262-4',
+    id: 'ff-04',
+    code: 'FF 04',
     number: 4,
+    fullName: 'FF 04 - BR262 - km 288+300',
     highway: 'BR-262',
-    km: 292,
-    stretch: 'Entre Ribas do Rio Pardo e Campo Grande',
-    cities: 'Ribas do Rio Pardo · Campo Grande',
+    kmDisplay: 'km 288+300',
+    city: 'Campo Grande/MS',
     gantriesCount: 2,
-    description: 'Trecho duplicado com 2 pórticos instalados para leitura bidirecional no acesso à capital Campo Grande.',
+    description: 'Pórtico no km 288+300 da BR-262, no município de Campo Grande/MS. Estrutura bidirecional no acesso da capital do estado.',
     coords: { x: 230, y: 155 }
   },
-
-  // MS-040 (Campo Grande -> Santa Rita do Pardo)
   {
-    id: 'g-040-1',
+    id: 'ff-05',
+    code: 'FF 05',
     number: 5,
+    fullName: 'FF 05 - MS040 - km 045+360',
     highway: 'MS-040',
-    km: 47,
-    stretch: 'Entre Campo Grande e Santa Rita do Pardo',
-    cities: 'Campo Grande',
+    kmDisplay: 'km 045+360',
+    city: 'Campo Grande/MS',
     gantriesCount: 1,
-    description: 'Saída leste da capital em direção à bacia florestal do Rio Pardo.',
+    description: 'Pórtico no km 045+360 da MS-040, no município de Campo Grande/MS. Saída sudeste da capital interligando as bacias florestais.',
     coords: { x: 230, y: 240 }
   },
   {
-    id: 'g-040-2',
+    id: 'ff-06',
+    code: 'FF 06',
     number: 6,
+    fullName: 'FF 06 - MS040 - km 216+120',
     highway: 'MS-040',
-    km: 123,
-    stretch: 'Entre Campo Grande e Santa Rita do Pardo',
-    cities: 'Campo Grande · Santa Rita do Pardo',
+    kmDisplay: 'km 216+120',
+    city: 'Santa Rita do Pardo/MS',
     gantriesCount: 1,
-    description: 'Pórtico no coração da MS-040, rodovia vital para transporte florestal sustentável.',
-    coords: { x: 340, y: 260 }
-  },
-  {
-    id: 'g-040-3',
-    number: 7,
-    highway: 'MS-040',
-    km: 217,
-    stretch: 'Entre Campo Grande e Santa Rita do Pardo',
-    cities: 'Santa Rita do Pardo',
-    gantriesCount: 1,
-    description: 'Aproximação de Santa Rita do Pardo e conexão com a MS-338.',
+    description: 'Pórtico no km 216+120 da MS-040, em Santa Rita do Pardo/MS. Intersecção estratégica com o entroncamento da MS-338.',
     coords: { x: 450, y: 285 }
   },
-
-  // BR-267 (Bataguassu / Divisa SP -> Casa Verde -> Nova Alvorada do Sul)
   {
-    id: 'g-267-1',
+    id: 'ff-07',
+    code: 'FF 07',
+    number: 7,
+    fullName: 'FF 07 - MS338 - km 311+900',
+    highway: 'MS-338',
+    kmDisplay: 'km 311+900',
+    city: 'Santa Rita do Pardo/MS',
+    gantriesCount: 1,
+    description: 'Pórtico no km 311+900 da MS-338, em Santa Rita do Pardo/MS. Rodovia que integra a MS-040 à BR-267.',
+    coords: { x: 520, y: 320 }
+  },
+  {
+    id: 'ff-08',
+    code: 'FF 08',
     number: 8,
+    fullName: 'FF 08 - BR267 - km 024+500',
     highway: 'BR-267',
-    km: 21,
-    stretch: 'Entre a divisa MS-SP e Bataguassu',
-    cities: 'Bataguassu · Divisa SP',
+    kmDisplay: 'km 024+500',
+    city: 'Bataguassu/MS',
     gantriesCount: 2,
-    description: 'Portal de entrada interestadual vindo de São Paulo via Ponte Hélio Serejo / Rio Paraná.',
+    description: 'Pórtico no km 024+500 da BR-267, no município de Bataguassu/MS. Portal interestadual com SP pela ponte do Rio Paraná.',
     coords: { x: 670, y: 390 }
   },
   {
-    id: 'g-267-2',
+    id: 'ff-09',
+    code: 'FF 09',
     number: 9,
+    fullName: 'FF 09 - BR267 - km 129+100',
     highway: 'BR-267',
-    km: 66,
-    stretch: 'Entre Bataguassu e Casa Verde',
-    cities: 'Bataguassu · Nova Andradina (Distr. Casa Verde)',
+    kmDisplay: 'km 129+100',
+    city: 'Nova Andradina/MS',
     gantriesCount: 1,
-    description: 'Corredor de escoamento de grãos e produtos florestais do sul do estado.',
-    coords: { x: 540, y: 380 }
+    description: 'Pórtico no km 129+100 da BR-267, no município de Nova Andradina/MS (região de Casa Verde). Corredor logístico de cargas.',
+    coords: { x: 420, y: 372 }
   },
   {
-    id: 'g-267-3',
+    id: 'ff-10',
+    code: 'FF 10',
     number: 10,
+    fullName: 'FF 10 - BR267 - km 182+000',
     highway: 'BR-267',
-    km: 130,
-    stretch: 'Entre Casa Verde e Nova Alvorada do Sul',
-    cities: 'Casa Verde · Nova Alvorada do Sul',
+    kmDisplay: 'km 182+000',
+    city: 'Nova Alvorada do Sul/MS',
     gantriesCount: 1,
-    description: 'Ponto estratégico entre o entroncamento da BR-163 e a Rota Bioceânica.',
-    coords: { x: 380, y: 370 }
-  },
-  {
-    id: 'g-267-4',
-    number: 11,
-    highway: 'BR-267',
-    km: 180,
-    stretch: 'Entre Casa Verde e Nova Alvorada do Sul',
-    cities: 'Nova Alvorada do Sul',
-    gantriesCount: 1,
-    description: 'Acesso ao polo de Nova Alvorada do Sul, interligando o tráfego pesado com o centro do estado.',
+    description: 'Pórtico no km 182+000 da BR-267, em Nova Alvorada do Sul/MS. Entroncamento de escoamento para o sul do estado.',
     coords: { x: 250, y: 350 }
   },
-
-  // MS-338 (Santa Rita do Pardo -> Bataguassu)
   {
-    id: 'g-338-1',
-    number: 12,
-    highway: 'MS-338',
-    km: 312,
-    stretch: 'Entre Santa Rita do Pardo e Bataguassu',
-    cities: 'Santa Rita do Pardo · Bataguassu',
+    id: 'ff-11',
+    code: 'FF 11',
+    number: 11,
+    fullName: 'FF 11 - MS040 - km 123+860',
+    highway: 'MS-040',
+    kmDisplay: 'km 123+860',
+    city: 'Ribas do Rio Pardo/MS',
     gantriesCount: 1,
-    description: 'Ligação estratégica unindo o corredor da MS-040 com a BR-267 e BR-262.',
-    coords: { x: 530, y: 320 }
+    description: 'Pórtico no km 123+860 da MS-040, no município de Ribas do Rio Pardo/MS. Monitoramento no trecho intermediário da rodovia.',
+    coords: { x: 340, y: 260 }
+  },
+  {
+    id: 'ff-12',
+    code: 'FF 12',
+    number: 12,
+    fullName: 'FF 12 - BR267 - KM 065+750',
+    highway: 'BR-267',
+    kmDisplay: 'KM 065+750',
+    city: 'Anaurilândia/MS',
+    gantriesCount: 1,
+    description: 'Pórtico no km 065+750 da BR-267, no município de Anaurilândia/MS. Integração viária no leste sul-mato-grossense.',
+    coords: { x: 560, y: 382 }
   }
 ];
 
@@ -170,16 +176,16 @@ export const GantryMapSection: React.FC = () => {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-4 border-b border-slate-100 pb-6">
         <div>
           <div className="flex items-center gap-2 text-xs font-bold text-[#46973A] uppercase tracking-wider">
-            <span>Mapeamento da Concessão</span>
+            <span>Mapeamento Oficial da Concessão</span>
             <span>·</span>
-            <span>AGEMS · 870,3 km</span>
+            <span>AGEMS · 12 Pontos de Cobrança</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-extrabold text-[#1A2B49] tracking-tight mt-1">
-            Localização de Todos os Pórticos Free Flow
+            Localização Oficial dos Pórticos Free Flow (FF 01 a FF 12)
           </h2>
           <div className="w-16 h-1 bg-[#46973A] rounded-full mt-2" />
           <p className="text-sm text-slate-600 mt-2 max-w-2xl">
-            A malha concedida conta com <strong>12 pontos de cobrança eletrônica distribuídos em 14 pórticos aéreos</strong> monitorados 24h pelo Centro de Controle de Arrecadação (CCA).
+            Confira a quilometragem exata com estacas métricas e os municípios de cada pórtico ao longo das rodovias <strong>BR-262, MS-040, BR-267 e MS-338</strong>.
           </p>
         </div>
 
@@ -191,7 +197,7 @@ export const GantryMapSection: React.FC = () => {
               onClick={() => setSelectedHighway(hw)}
               className={`px-3 py-1.5 rounded-lg transition-all cursor-pointer whitespace-nowrap ${
                 selectedHighway === hw
-                  ? 'bg-[#1A2B49] text-white shadow-xs'
+                  ? 'bg-[#1A2B49] text-white shadow-xs font-bold'
                   : 'text-slate-600 hover:text-[#1A2B49]'
               }`}
             >
@@ -336,10 +342,10 @@ export const GantryMapSection: React.FC = () => {
                 <text x="0" y="18" fill="#F8FAFC" fontSize="10" fontWeight="bold" textAnchor="middle">Bataguassu (Divisa SP)</text>
               </g>
 
-              {/* Casa Verde */}
+              {/* Nova Andradina */}
               <g transform="translate(450, 375)">
                 <circle cx="0" cy="0" r="5" fill="#E2E8F0" />
-                <text x="0" y="16" fill="#CBD5E1" fontSize="10" textAnchor="middle">Casa Verde</text>
+                <text x="0" y="16" fill="#CBD5E1" fontSize="10" textAnchor="middle">Nova Andradina</text>
               </g>
 
               {/* Nova Alvorada do Sul */}
@@ -375,23 +381,24 @@ export const GantryMapSection: React.FC = () => {
                       strokeWidth="2"
                     />
 
-                    {/* Gantry Number label */}
+                    {/* Gantry Code label */}
                     <text
                       x="0"
-                      y="3.5"
+                      y="3"
                       textAnchor="middle"
                       fill="#FFFFFF"
-                      fontSize={isSelected ? '9' : '8'}
+                      fontSize={isSelected ? '8' : '7'}
                       fontWeight="bold"
+                      fontFamily="monospace"
                     >
-                      {g.number}
+                      {g.code.replace('FF ', '')}
                     </text>
 
                     {/* Km Tag Label */}
                     <rect
-                      x="-22"
-                      y={isSelected ? "-25" : "-20"}
-                      width="44"
+                      x="-26"
+                      y={isSelected ? "-24" : "-20"}
+                      width="52"
                       height="14"
                       rx="3"
                       fill="#0F172A"
@@ -400,14 +407,14 @@ export const GantryMapSection: React.FC = () => {
                     />
                     <text
                       x="0"
-                      y={isSelected ? "-15" : "-10"}
+                      y={isSelected ? "-14" : "-10"}
                       textAnchor="middle"
                       fill={isSelected ? '#46973A' : '#E2E8F0'}
-                      fontSize="8"
+                      fontSize="7.5"
                       fontWeight="bold"
                       fontFamily="monospace"
                     >
-                      Km {g.km}
+                      {g.kmDisplay.replace('km ', 'Km ').replace('KM ', 'Km ')}
                     </text>
                   </g>
                 );
@@ -420,14 +427,14 @@ export const GantryMapSection: React.FC = () => {
             <div className="flex items-center gap-4">
               <span className="flex items-center gap-1.5">
                 <span className="w-2.5 h-2.5 rounded-full bg-[#46973A]" />
-                Pórtico Free Flow
+                Pórtico Free Flow (FF 01 a FF 12)
               </span>
               <span className="flex items-center gap-1.5">
                 <span className="w-2 h-2 rounded-full bg-white" />
                 Polo Urbano
               </span>
             </div>
-            <span>TOTAL: 14 PÓRTICOS EM 12 PONTOS</span>
+            <span>TOTAL: 12 PONTOS DE COBRANÇA</span>
           </div>
 
         </div>
@@ -437,24 +444,24 @@ export const GantryMapSection: React.FC = () => {
           
           <div>
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <span className="text-xs font-mono font-bold px-2 py-0.5 rounded bg-[#1A2B49] text-white">
-                PÓRTICO #{activeGantry.number.toString().padStart(2, '0')}
+              <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#1A2B49] text-white">
+                {activeGantry.code}
               </span>
               <span className="text-xs font-mono font-bold text-[#46973A]">
-                {activeGantry.highway} · KM {activeGantry.km}
+                {activeGantry.highway} · {activeGantry.kmDisplay}
               </span>
             </div>
 
             <div className="mt-4">
               <span className="text-xs font-bold uppercase text-slate-500 tracking-wider block">
-                Trecho de Operação:
+                Nome Oficial do Ponto:
               </span>
               <h3 className="text-lg font-bold text-[#1A2B49] mt-0.5">
-                {activeGantry.stretch}
+                {activeGantry.fullName}
               </h3>
-              <span className="text-xs text-slate-500 flex items-center gap-1 mt-1">
+              <span className="text-xs text-slate-600 flex items-center gap-1 mt-1 font-medium">
                 <MapPin className="w-3.5 h-3.5 text-[#46973A] shrink-0" />
-                {activeGantry.cities}
+                {activeGantry.city}
               </span>
             </div>
 
@@ -482,7 +489,7 @@ export const GantryMapSection: React.FC = () => {
           {/* Quick list of other gantries in same highway */}
           <div className="pt-4 border-t border-slate-200">
             <span className="text-[11px] font-bold text-slate-500 uppercase tracking-wider block mb-2">
-              Selecione outro pórtico na lista:
+              Selecione outro pórtico na lista ({filteredGantries.length}):
             </span>
             <div className="max-h-48 overflow-y-auto space-y-1.5 pr-1">
               {filteredGantries.map((g) => (
@@ -496,11 +503,11 @@ export const GantryMapSection: React.FC = () => {
                   }`}
                 >
                   <span className="flex items-center gap-2 truncate">
-                    <span className="font-mono text-[11px] font-bold">P{g.number}</span>
-                    <span className="truncate">{g.highway} · Km {g.km}</span>
+                    <span className="font-mono text-[11px] font-bold text-[#46973A]">{g.code}</span>
+                    <span className="truncate">{g.highway} · {g.kmDisplay}</span>
                   </span>
-                  <span className={`text-[11px] font-mono shrink-0 ${activeGantry.id === g.id ? 'text-[#46973A]' : 'text-slate-500'}`}>
-                    {g.stretch.split('Entre')[1] || g.stretch}
+                  <span className={`text-[11px] font-mono shrink-0 ${activeGantry.id === g.id ? 'text-white' : 'text-slate-500'}`}>
+                    {g.city}
                   </span>
                 </button>
               ))}
@@ -511,27 +518,29 @@ export const GantryMapSection: React.FC = () => {
 
       </div>
 
-      {/* Complete Table Matrix of All 12 Points / 14 Gantries */}
+      {/* Complete Official Table matching the user's specification */}
       <div className="pt-6 border-t border-slate-100">
         <div className="mb-4 flex items-center justify-between">
-          <span className="text-xs font-bold text-[#1A2B49] uppercase tracking-wider block">
-            Quadro Oficial de Localização dos Pórticos · Rota da Celulose
-          </span>
-          <span className="text-xs font-mono text-slate-500">
-            {filteredGantries.length} pontos exibidos
+          <div>
+            <span className="text-xs font-bold text-[#1A2B49] uppercase tracking-wider block">
+              Tabela Oficial dos Pórticos · Concessionária Caminhos da Celulose
+            </span>
+            <span className="text-[11px] text-slate-500">
+              Relação completa de todos os 12 pontos com quilometragem e municípios
+            </span>
+          </div>
+          <span className="text-xs font-mono text-slate-500 bg-slate-100 px-2 py-1 rounded">
+            {filteredGantries.length} pórticos listados
           </span>
         </div>
 
-        <div className="overflow-x-auto rounded-xl border border-slate-200">
+        <div className="overflow-x-auto rounded-xl border border-slate-200 shadow-xs">
           <table className="w-full text-left text-xs text-slate-700">
             <thead className="bg-[#1A2B49] text-white text-[11px] uppercase tracking-wider font-mono">
               <tr>
                 <th className="py-3 px-4">Pórtico</th>
                 <th className="py-3 px-4">Rodovia</th>
-                <th className="py-3 px-4">Quilômetro</th>
-                <th className="py-3 px-4">Trecho de Cobertura</th>
-                <th className="py-3 px-4">Municípios Atendidos</th>
-                <th className="py-3 px-4 text-center">Pórticos Físicos</th>
+                <th className="py-3 px-4">Município</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-100 bg-white">
@@ -540,26 +549,18 @@ export const GantryMapSection: React.FC = () => {
                   key={g.id}
                   onClick={() => setActiveGantry(g)}
                   className={`hover:bg-slate-50/80 transition-colors cursor-pointer ${
-                    activeGantry.id === g.id ? 'bg-[#46973A]/10 font-medium' : ''
+                    activeGantry.id === g.id ? 'bg-[#46973A]/10 font-semibold' : ''
                   }`}
                 >
-                  <td className="py-3 px-4 font-mono font-bold text-[#1A2B49]">
-                    Pórtico {g.number.toString().padStart(2, '0')}
+                  <td className="py-3.5 px-4 font-mono font-bold text-[#1A2B49] flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-[#46973A]" />
+                    <span>{g.fullName}</span>
                   </td>
-                  <td className="py-3 px-4 font-mono font-bold text-[#46973A]">
+                  <td className="py-3.5 px-4 font-mono font-bold text-[#46973A]">
                     {g.highway}
                   </td>
-                  <td className="py-3 px-4 font-mono font-bold text-slate-900 tabular-nums">
-                    Km {g.km}
-                  </td>
-                  <td className="py-3 px-4">
-                    {g.stretch}
-                  </td>
-                  <td className="py-3 px-4 text-slate-500">
-                    {g.cities}
-                  </td>
-                  <td className="py-3 px-4 text-center font-mono font-bold text-slate-900">
-                    {g.gantriesCount}
+                  <td className="py-3.5 px-4 font-medium text-slate-700">
+                    {g.city}
                   </td>
                 </tr>
               ))}
