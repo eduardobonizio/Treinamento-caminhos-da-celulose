@@ -25,3 +25,74 @@
 .rotate-y-180 {
   transform: rotateY(180deg);
 }
+
+/* Strict 1-Page Certificate Print Rules */
+@media print {
+  @page {
+    size: A4 landscape;
+    margin: 5mm;
+  }
+
+  html, body {
+    width: 100% !important;
+    height: 100% !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    background: #ffffff !important;
+    overflow: hidden !important;
+  }
+
+  /* Hide entire web application UI during print */
+  header, nav, main, footer, .print-hide {
+    display: none !important;
+  }
+
+  /* Reset modal containers so they don't add extra pages or margins */
+  .certificate-modal-wrapper {
+    position: static !important;
+    background: transparent !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    overflow: visible !important;
+    width: 100% !important;
+    height: 100% !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .certificate-modal-card {
+    position: static !important;
+    max-width: 100% !important;
+    width: 100% !important;
+    height: 100% !important;
+    padding: 0 !important;
+    margin: 0 !important;
+    box-shadow: none !important;
+    border: none !important;
+    background: transparent !important;
+  }
+
+  /* The actual certificate sheet: Guaranteed 1 single page */
+  #certificate-print-area {
+    display: flex !important;
+    flex-direction: column !important;
+    justify-content: space-between !important;
+    width: 100% !important;
+    height: 188mm !important;
+    max-height: 190mm !important;
+    box-sizing: border-box !important;
+    padding: 8mm 12mm !important;
+    margin: 0 auto !important;
+    border: 5px double #1A2B49 !important;
+    background: #FFFFFF !important;
+    page-break-inside: avoid !important;
+    page-break-after: avoid !important;
+    page-break-before: avoid !important;
+    break-inside: avoid !important;
+    overflow: hidden !important;
+  }
+
+  #certificate-print-area * {
+    visibility: visible !important;
+  }
+}
