@@ -1,85 +1,109 @@
-# Plano de Implementação Aprovado: Menu e Calculadora de Pedágio por Rota
+# Atualização dos Pórticos Free Flow (PFF-01 a PFF-12) e Correção do Cálculo de Rota no Pórtico-12
 
-Este documento registra a arquitetura aprovada para a funcionalidade de **Calculadora de Pedágio por Rota** da Concessionária Caminhos da Celulose, utilizando topologia por **Grafo de Adjacência** e busca determinística em JavaScript puro.
+Este plano detalha a atualização oficial da malha de pedágios Free Flow da concessão Caminhos da Celulose, consolidando os pontos em pista duplicada (**Pórtico-04** e **Pórtico-08**), removendo os registros duplicados (`Pórtico-13` e `Pórtico-14`) e corrigindo a falha geométrica e algorítmica que impedia a contabilização do **Pórtico-12 (BR-267 km 065+750)** nos cálculos de rota.
 
 ---
 
 ## User Review & Critical Decisions
 
-> [!NOTE]
-> Aprovada auditoria de estilos e acoplamento em `TabType`.
-> **Correção de Arquitetura Aprovada**: O cálculo de rota utiliza um **Grafo de Conexões de Adjacência (BFS / Shortest Path)** mapeando estritamente os segmentos reais entre municípios por corredor rodoviário (BR-262, MS-040, BR-267, MS-338 e MS-395), eliminando qualquer risco de somar pórticos indevidos de rodovias paralelas.
+Com base nas definições alinhadas, a solução seguirá estritamente estas diretrizes:
+
+- **Quilometragem do PFF-11 (MS-040)**: Mantida em **km 123+860** no trecho intermediário de Ribas do Rio Pardo/MS (entre o Pórtico-05 no km 045+360 e o Pórtico-06 no km 216+120).
+- **Identificação Principal na Interface**: Mantida a nomenclatura **Pórtico-01 a Pórtico-12** como título principal nos marcadores e listagens, adicionando o código técnico **PFF-01 a PFF-12** como metadado complementar.
+- **Unificação de Pista Duplicada (Pórticos 04 e 08)**: Os pórticos **13** e **14** serão removidos como pontos independentes. Os pórticos **04 (BR-262 km 288+300)** e **08 (BR-267 km 021+200)** passarão a indicar que operam com **2 estruturas físicas (Sentido Leste e Sentido Oeste)** na mesma localização quilométrica, cobrando apenas 1 tarifa por sentido trafegado.
+- **Sincronização Completa do Portal**: As atualizações serão aplicadas tanto na **Calculadora de Rotas e Tarifas** quanto no **Mapa Esquemático Interativo da Página Inicial**.
 
 ---
 
-## 1. Auditoria Visual e de Arquitetura
+## 1. Overview & Core Concept
 
-### Reutilização Visual e Estilização (100% Paridade)
-- **Cores e Identidade Visual**:
-  - Azul Marinho Concessionária: `#1A2B49` (`text-[#1A2B49]`, `bg-[#1A2B49]`, `border-[#1A2B49]`)
-  - Verde Destaque Concessionária: `#46973A` (`text-[#46973A]`, `bg-[#46973A]`, `border-[#46973A]`)
-  - Amarelo Alerta: `text-amber-600`, `bg-amber-50`, `border-amber-200`
-  - Fundo Neutro: `bg-slate-50`, `border-slate-200`, `text-slate-800`
-- **Tipografia**:
-  - Fonte Principal de Interface: `Plus Jakarta Sans`
-  - Fonte Numérica e Monetária: `IBM Plex Mono` (`font-mono tabular-nums`)
-- **Ícones Reutilizados (Lucide React)**:
-  - `Calculator`, `MapPin`, `Navigation`, `ArrowRight`, `RotateCcw`, `CheckCircle2`, `AlertCircle`, `Truck`, `Car`, `Info`, `ArrowLeftRight`
+O sistema representa a malha rodoviária concedida (BR-262, BR-267, MS-040 e MS-338) com **12 pontos oficiais de cobrança** (`PFF-01` a `PFF-12`):
 
-### Ponto Exato de Acoplamento no DOM e Menu
-1. **Tipagem (`src/types/index.ts`)**:
-   - Extensão do tipo `TabType` para incluir `'calculator'`:
-     `export type TabType = 'home' | 'calculator' | 'training' | 'arena' | 'certificates';`
-2. **Navegação (`src/components/Navbar.tsx`)**:
-   - Acoplamento do novo botão `"Calculadora de Pedágio"` com o ícone `<Calculator className="w-4 h-4" />` entre `"Visão Geral"` e `"Módulos de Estudo"` (no menu desktop `<nav>` e no menu suspenso mobile).
-3. **Visão Principal (`src/App.tsx`)**:
-   - Renderização condicional da nova tela `<RouteTollCalculator />` quando `currentTab === 'calculator'`.
-
----
-
-## 2. Modelagem por Grafo da Malha Rodoviária
-
-### Tarifas Oficiais dos 14 Pórticos
-| Pórtico | Rodovia | Estaca / Quilometragem | Município | Tarifa Base (Passeio) |
+| Rodovia | Identificação Principal | Código Técnico | Localização Oficial (KM) | Município / Observação Operacional |
 | :--- | :--- | :--- | :--- | :--- |
-| **Pórtico-01** | BR-262 | km 040+450 | Três Lagoas / MS | **R$ 13,70** |
-| **Pórtico-02** | BR-262 | km 109+500 | Água Clara / MS | **R$ 16,00** |
-| **Pórtico-03** | BR-262 | km 204+460 | Ribas do Rio Pardo / MS | **R$ 18,00** |
-| **Pórtico-04** | BR-262 | km 288+300 | Campo Grande / MS | **R$ 14,90** |
-| **Pórtico-05** | MS-040 | km 045+360 | Campo Grande / MS | **R$ 14,90** |
-| **Pórtico-06** | MS-040 | km 216+120 | Santa Rita do Pardo / MS | **R$ 5,60** |
-| **Pórtico-07** | MS-338 | km 311+900 | Santa Rita do Pardo / MS | **R$ 5,60** |
-| **Pórtico-08** | BR-267 | km 024+500 | Bataguassu / MS | **R$ 10,90** |
-| **Pórtico-09** | BR-267 | km 129+100 | Nova Andradina / MS | **R$ 17,80** |
-| **Pórtico-10** | BR-267 | km 182+000 | Nova Alvorada do Sul / MS | **R$ 13,10** |
-| **Pórtico-11** | MS-040 | km 123+860 | Ribas do Rio Pardo / MS | **R$ 16,20** |
-| **Pórtico-12** | BR-267 | km 065+750 | Anaurilândia / MS | **R$ 12,30** |
-| **Pórtico-13** | MS-338 | km 150+000 | Camapuã / MS | **R$ 16,20** |
-| **Pórtico-14** | MS-395 | km 080+000 | Brasilândia / MS | **R$ 11,30** |
-
-### Topologia de Adjacência por Corredor Rodoviário
-- **Corredor BR-262**:
-  - `Campo Grande` ⟷ (Pórtico-04) ⟷ `Ribas do Rio Pardo` ⟷ (Pórtico-03, Pórtico-02) ⟷ `Água Clara` ⟷ (Pórtico-01) ⟷ `Três Lagoas`
-- **Corredor MS-040**:
-  - `Campo Grande` ⟷ (Pórtico-05, Pórtico-11) ⟷ `Ribas do Rio Pardo` ⟷ (Pórtico-06) ⟷ `Santa Rita do Pardo`
-- **Corredor MS-338**:
-  - `Camapuã` ⟷ (Pórtico-13) ⟷ `Ribas do Rio Pardo` ⟷ (Pórtico-07) ⟷ `Santa Rita do Pardo`
-- **Corredor BR-267**:
-  - `Nova Alvorada do Sul` ⟷ (Pórtico-10) ⟷ `Nova Andradina` ⟷ (Pórtico-09) ⟷ `Anaurilândia` ⟷ (Pórtico-12, Pórtico-08) ⟷ `Bataguassu`
-- **Corredor MS-395**:
-  - `Bataguassu` ⟷ (Pórtico-14) ⟷ `Brasilândia` ⟷ `Três Lagoas`
+| **BR-262** | Pórtico-01 | `PFF-01` | `km 040+450` | Três Lagoas/MS |
+| **BR-262** | Pórtico-02 | `PFF-02` | `km 109+500` | Água Clara/MS |
+| **BR-262** | Pórtico-03 | `PFF-03` | `km 204+460` | Ribas do Rio Pardo/MS |
+| **BR-262** | Pórtico-04 | `PFF-04` | `km 288+300` | Campo Grande/MS *(Pista Duplicada — 2 pórticos Leste/Oeste)* |
+| **MS-040** | Pórtico-05 | `PFF-05` | `km 045+360` | Campo Grande/MS |
+| **MS-040** | Pórtico-06 | `PFF-06` | `km 216+120` | Santa Rita do Pardo/MS |
+| **MS-338** | Pórtico-07 | `PFF-07` | `km 311+900` | Santa Rita do Pardo/MS |
+| **BR-267** | Pórtico-08 | `PFF-08` | `km 021+200` | Bataguassu/MS *(Pista Duplicada — 2 pórticos Leste/Oeste)* |
+| **BR-267** | Pórtico-09 | `PFF-09` | `km 129+100` | Nova Andradina/MS |
+| **BR-267** | Pórtico-10 | `PFF-10` | `km 182+000` | Nova Alvorada do Sul/MS |
+| **MS-040** | Pórtico-11 | `PFF-11` | `km 123+860` | Ribas do Rio Pardo/MS |
+| **BR-267** | Pórtico-12 | `PFF-12` | `km 065+750` | Anaurilândia/MS |
 
 ---
 
-## 3. Estratégia de Implementação & Componentes
+## 2. User Experience & Visual Design
 
-1. `src/types/index.ts`: Adicionar `'calculator'` no enum `TabType`.
-2. `src/components/Navbar.tsx`: Adicionar botão de navegação da Calculadora de Pedágio no desktop e mobile.
-3. `src/components/RouteTollCalculator.tsx`:
-   - Grafo de adjacência de cidades com pórticos por segmento.
-   - Algoritmo BFS para determinação do caminho geográfico e dos pórticos interceptados.
-   - Autocomplete sem acentos e sensibilidade de caixa.
-   - Botão "Inverter Origem/Destino" (`ArrowLeftRight`).
-   - Categoria padrão: "Automóvel / Passeio (Tarifa Base 1x)" com seletores para motos e comerciais por eixo.
-   - Detalhamento do resultado: caminho percorrido, lista ordenada de pórticos com fotos/localizações e valor total formatado em `IBM Plex Mono`.
-4. `src/App.tsx`: Acoplar estado da aba e renderizar o componente quando selecionado.
+- **Clareza nos Pórticos de Pista Duplicada (04 e 08)**:
+  - Nos popups do mapa real e nos cartões do Mapa Esquemático da Home, os pórticos **04** e **08** exibirão a nota operacional indicando a presença de **2 estruturas físicas (Leste/Oeste)** devido à pista duplicada, esclarecendo que o motorista paga apenas 1 tarifa correspondente ao sentido em que trafega.
+  - A legenda do mapa e os contadores da calculadora serão atualizados para refletir os **12 Pontos de Cobrança Free Flow** (em substituição à contagem anterior de 14 pontos separados).
+- **Exibição Padronizada de Quilometragem e Código PFF**:
+  - Cada item na lista de pórticos da rota e cada marcador no mapa apresentará o nome principal (`Pórtico-01` a `Pórtico-12`), acompanhado do código técnico (`PFF-01` a `PFF-12`), rodovia e quilometragem formatada (`km XXX+XXX`).
+
+---
+
+## 3. Key Product Decisions & Trade-Offs
+
+### Diagnóstico da Falha no Pórtico-12 (BR-267 km 065+750)
+A investigação técnica identificou duas causas combinadas que faziam o **Pórtico-12** ser ignorado quando o usuário traçava rotas na BR-267:
+1. **Deslocamento Geográfico da Coordenada do Pórtico-12**:
+   - Entre o Pórtico-09 (`lat: -21.7319, lng: -53.3061`) e o Pórtico-08 (`lat: -21.7285, lng: -52.3390`), o traçado real da rodovia **BR-267** corre próximo à latitude **`-21.769°`**.
+   - Contudo, o Pórtico-12 estava cadastrado na latitude **`-21.852417°`**, ficando a **mais de 9 km ao sul do eixo real da BR-267** (deslocado em direção ao acesso secundário de Anaurilândia). Como o detector exigia distância máxima de `1.500 m` até a rodovia, nenhum veículo trafegando pela BR-267 passava perto o suficiente do ponto cadastrado.
+2. **Cálculo de Distância Apenas por Vértices Discretos (Vertex-Only)**:
+   - O algoritmo anterior media a distância apenas até os pontos de curva (`coords[i]`) retornados pelo OSRM. Em retas longas da BR-267 e MS-040, os vértices da polilinha podem ficar espaçados em vários quilômetros, fazendo com que um pórtico situado no meio de uma reta fique distante das duas extremidades do segmento.
+
+### Solução Adotada
+- **Reposicionamento Geodésico Preciso**: Atualização das coordenadas do **Pórtico-12** diretamente sobre o eixo oficial da BR-267 no km 065+750 (`lat: -21.7695, lng: -52.7337`) e ajuste do **Pórtico-08** para o novo **km 021+200** em Bataguassu (`lat: -21.7285, lng: -52.3390`).
+- **Interseção Ponto-Segmento (Point-to-Segment Projection)**: Substituição da verificação por vértice isolado pelo cálculo da distância ortogonal do pórtico até cada segmento de reta `[A, B]` da polilinha da rota, garantindo 100% de precisão mesmo em trechos retilíneos longos.
+
+---
+
+## 4. Technical Architecture & Data Strategy
+
+```
+┌────────────────────────────────────────────────────────────────────────────┐
+│                   FLUXO DE DETECÇÃO E TARIFAÇÃO DE PÓRTICOS                │
+└────────────────────────────────────────────────────────────────────────────┘
+                                      │
+       ┌──────────────────────────────┴──────────────────────────────┐
+       ▼                                                             ▼
+┌─────────────────────────────┐                               ┌─────────────────────────────┐
+│   1. Base Oficial Unificada │                               │ 2. Geometria de Rota (OSRM) │
+│   - 12 Pórticos (PFF 01-12) │                               │ - Polilinha GeoJSON [A -> B]│
+│   - P04 e P08 unificados    │                               │ - Segmentos contínuos       │
+│   - Coordenadas no eixo real│                               │   ao longo das rodovias     │
+└──────────────┬──────────────┘                               └──────────────┬──────────────┘
+               │                                                             │
+               └──────────────────────────────┬──────────────────────────────┘
+                                              ▼
+                       ┌─────────────────────────────────────────────┐
+                       │ 3. Motor de Projeção Ortogonal no Segmento  │
+                       │ - Calcula distância mínima do Pórtico P     │
+                       │   ao segmento de reta AB (Point-to-Segment) │
+                       │ - Ordena pela progressão real da viagem     │
+                       └──────────────────────┬──────────────────────┘
+                                              ▼
+                       ┌─────────────────────────────────────────────┐
+                       │ 4. Cálculo Tarifário e Sincronização Visual │
+                       │ - Contabiliza Pórtico-12 na BR-267          │
+                       │ - Exibe selo de Pista Duplicada em P04/P08  │
+                       │ - Sincroniza Calculadora e Mapa da Home     │
+                       └─────────────────────────────────────────────┘
+```
+
+### Escopo de Atualização de Dados e Sincronização
+1. **Base de Pórticos da Calculadora**:
+   - Remoção definitiva de `p13` e `p14` da base de pórticos e das arestas topológicas (`ROUTE_EDGES`).
+   - Atualização do `p08` para `km 021+200` (`declaredKm: 21.200`, `estimatedKm: 21.200`) e ajuste de coordenadas no eixo da BR-267.
+   - Correção das coordenadas do `p12` (`km 065+750`) exatamente sobre o traçado da BR-267 (`lat: -21.7695, lng: -52.7337`).
+   - Inclusão dos atributos `pffCode` (`PFF-01` a `PFF-12`) e `duplicatedLaneNote` nos pórticos `p04` e `p08`.
+   - Ajuste das coordenadas de referência de municípios na BR-267 (como Anaurilândia/Nova Andradina quando selecionados no corredor da BR-267) e implementação da função `pointToSegmentDistanceMeters` para garantir que qualquer rota que percorra o trecho da BR-267 entre Bataguassu, Anaurilândia, Nova Andradina e Nova Casa Verde contabilize o **Pórtico-12**.
+2. **Mapa Esquemático Interativo da Home**:
+   - Atualização do **Pórtico 08** de `km 024+500` para `km 021+200` (`PFF-08`).
+   - Padronização visual dos 12 pórticos com seus códigos `PFF-01` a `PFF-12` e destaque explicativo de pista duplicada para os Pórticos 04 e 08.
+3. **Build de Produção**:
+   - Validação de compilação TypeScript/Vite e atualização dos artefatos estáticos na pasta `docs/`.

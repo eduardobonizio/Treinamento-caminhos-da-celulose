@@ -4,6 +4,7 @@ import { MapPin, Navigation, Compass, Filter, CheckCircle2, Info, ChevronRight, 
 export interface GantryLocation {
   id: string;
   code: string; // "Pórtico 01", "Pórtico 02", etc.
+  pffCode: string; // "PFF-01" to "PFF-12"
   number: number;
   fullName: string; // "Pórtico 01 - BR262 - km 040+450"
   highway: 'BR-262' | 'MS-040' | 'BR-267' | 'MS-338';
@@ -18,8 +19,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-01',
     code: 'Pórtico 01',
+    pffCode: 'PFF-01',
     number: 1,
-    fullName: 'Pórtico 01 - BR262 - km 040+450',
+    fullName: 'Pórtico 01 (PFF-01) - BR262 - km 040+450',
     highway: 'BR-262',
     kmDisplay: 'km 040+450',
     city: 'Três Lagoas/MS',
@@ -30,8 +32,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-02',
     code: 'Pórtico 02',
+    pffCode: 'PFF-02',
     number: 2,
-    fullName: 'Pórtico 02 - BR262 - km 109+500',
+    fullName: 'Pórtico 02 (PFF-02) - BR262 - km 109+500',
     highway: 'BR-262',
     kmDisplay: 'km 109+500',
     city: 'Água Clara/MS',
@@ -42,8 +45,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-03',
     code: 'Pórtico 03',
+    pffCode: 'PFF-03',
     number: 3,
-    fullName: 'Pórtico 03 - BR262 - km 204+460',
+    fullName: 'Pórtico 03 (PFF-03) - BR262 - km 204+460',
     highway: 'BR-262',
     kmDisplay: 'km 204+460',
     city: 'Ribas do Rio Pardo/MS',
@@ -54,20 +58,22 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-04',
     code: 'Pórtico 04',
+    pffCode: 'PFF-04',
     number: 4,
-    fullName: 'Pórtico 04 - BR262 - km 288+300',
+    fullName: 'Pórtico 04 (PFF-04) - BR262 - km 288+300',
     highway: 'BR-262',
     kmDisplay: 'km 288+300',
     city: 'Campo Grande/MS',
     gantriesCount: 2,
-    description: 'Pórtico no km 288+300 da BR-262, no município de Campo Grande/MS. Estrutura bidirecional no acesso da capital do estado.',
+    description: 'Localizado em trecho de pista duplicada no km 288+300 da BR-262 (Campo Grande/MS). Conta com 2 estruturas físicas na mesma localização (uma para o sentido Leste e outra para o sentido Oeste), cobrando apenas 1 tarifa por sentido trafegado.',
     coords: { x: 230, y: 155 }
   },
   {
     id: 'portico-05',
     code: 'Pórtico 05',
+    pffCode: 'PFF-05',
     number: 5,
-    fullName: 'Pórtico 05 - MS040 - km 045+360',
+    fullName: 'Pórtico 05 (PFF-05) - MS040 - km 045+360',
     highway: 'MS-040',
     kmDisplay: 'km 045+360',
     city: 'Campo Grande/MS',
@@ -78,8 +84,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-06',
     code: 'Pórtico 06',
+    pffCode: 'PFF-06',
     number: 6,
-    fullName: 'Pórtico 06 - MS040 - km 216+120',
+    fullName: 'Pórtico 06 (PFF-06) - MS040 - km 216+120',
     highway: 'MS-040',
     kmDisplay: 'km 216+120',
     city: 'Santa Rita do Pardo/MS',
@@ -90,8 +97,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-07',
     code: 'Pórtico 07',
+    pffCode: 'PFF-07',
     number: 7,
-    fullName: 'Pórtico 07 - MS338 - km 311+900',
+    fullName: 'Pórtico 07 (PFF-07) - MS338 - km 311+900',
     highway: 'MS-338',
     kmDisplay: 'km 311+900',
     city: 'Santa Rita do Pardo/MS',
@@ -102,20 +110,22 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-08',
     code: 'Pórtico 08',
+    pffCode: 'PFF-08',
     number: 8,
-    fullName: 'Pórtico 08 - BR267 - km 024+500',
+    fullName: 'Pórtico 08 (PFF-08) - BR267 - km 021+200',
     highway: 'BR-267',
-    kmDisplay: 'km 024+500',
+    kmDisplay: 'km 021+200',
     city: 'Bataguassu/MS',
     gantriesCount: 2,
-    description: 'Pórtico no km 024+500 da BR-267, no município de Bataguassu/MS. Portal interestadual com SP pela ponte do Rio Paraná.',
+    description: 'Localizado em trecho de pista duplicada no km 021+200 da BR-267 (Bataguassu/MS). Conta com 2 estruturas físicas na mesma localização (sentido Leste e sentido Oeste) junto ao portal interestadual com SP.',
     coords: { x: 670, y: 390 }
   },
   {
     id: 'portico-09',
     code: 'Pórtico 09',
+    pffCode: 'PFF-09',
     number: 9,
-    fullName: 'Pórtico 09 - BR267 - km 129+100',
+    fullName: 'Pórtico 09 (PFF-09) - BR267 - km 129+100',
     highway: 'BR-267',
     kmDisplay: 'km 129+100',
     city: 'Nova Andradina/MS',
@@ -126,8 +136,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-10',
     code: 'Pórtico 10',
+    pffCode: 'PFF-10',
     number: 10,
-    fullName: 'Pórtico 10 - BR267 - km 182+000',
+    fullName: 'Pórtico 10 (PFF-10) - BR267 - km 182+000',
     highway: 'BR-267',
     kmDisplay: 'km 182+000',
     city: 'Nova Alvorada do Sul/MS',
@@ -138,8 +149,9 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-11',
     code: 'Pórtico 11',
+    pffCode: 'PFF-11',
     number: 11,
-    fullName: 'Pórtico 11 - MS040 - km 123+860',
+    fullName: 'Pórtico 11 (PFF-11) - MS040 - km 123+860',
     highway: 'MS-040',
     kmDisplay: 'km 123+860',
     city: 'Ribas do Rio Pardo/MS',
@@ -150,10 +162,11 @@ export const gantryLocations: GantryLocation[] = [
   {
     id: 'portico-12',
     code: 'Pórtico 12',
+    pffCode: 'PFF-12',
     number: 12,
-    fullName: 'Pórtico 12 - BR267 - KM 065+750',
+    fullName: 'Pórtico 12 (PFF-12) - BR267 - km 065+750',
     highway: 'BR-267',
-    kmDisplay: 'KM 065+750',
+    kmDisplay: 'km 065+750',
     city: 'Anaurilândia/MS',
     gantriesCount: 1,
     description: 'Pórtico no km 065+750 da BR-267, no município de Anaurilândia/MS. Integração viária no leste sul-mato-grossense.',
@@ -444,9 +457,14 @@ export const GantryMapSection: React.FC = () => {
           
           <div>
             <div className="flex items-center justify-between border-b border-slate-200 pb-3">
-              <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#1A2B49] text-white">
-                {activeGantry.code}
-              </span>
+              <div className="flex items-center gap-1.5">
+                <span className="text-xs font-mono font-bold px-2.5 py-1 rounded bg-[#1A2B49] text-white">
+                  {activeGantry.code}
+                </span>
+                <span className="text-[11px] font-mono font-bold px-2 py-1 rounded bg-slate-200 text-slate-700">
+                  {activeGantry.pffCode}
+                </span>
+              </div>
               <span className="text-xs font-mono font-bold text-[#46973A]">
                 {activeGantry.highway} · {activeGantry.kmDisplay}
               </span>
@@ -470,7 +488,7 @@ export const GantryMapSection: React.FC = () => {
               <div>
                 <span className="text-slate-400 block text-[10px] uppercase">Estrutura Aérea</span>
                 <span className="text-slate-900 font-bold">
-                  {activeGantry.gantriesCount === 2 ? '2 Pórticos (Bidirecional)' : '1 Pórtico Integrado'}
+                  {activeGantry.gantriesCount === 2 ? '2 Pórticos (Pista Duplicada)' : '1 Pórtico Integrado'}
                 </span>
               </div>
               <div>
@@ -504,6 +522,7 @@ export const GantryMapSection: React.FC = () => {
                 >
                   <span className="flex items-center gap-2 truncate">
                     <span className="font-mono text-[11px] font-bold text-[#46973A]">{g.code}</span>
+                    <span className={`font-mono text-[10px] px-1 rounded ${activeGantry.id === g.id ? 'bg-white/15 text-slate-200' : 'bg-slate-100 text-slate-500'}`}>{g.pffCode}</span>
                     <span className="truncate">{g.highway} · {g.kmDisplay}</span>
                   </span>
                   <span className={`text-[11px] font-mono shrink-0 ${activeGantry.id === g.id ? 'text-white' : 'text-slate-500'}`}>

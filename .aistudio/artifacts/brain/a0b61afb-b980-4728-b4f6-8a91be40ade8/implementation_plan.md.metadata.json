@@ -1,6 +1,6 @@
 {
-  "summary":  "Plano de implementação aprovado para a Calculadora de Pedágio por Rota com Grafo de Adjacência e BFS/Dijkstra topo-geográfico para os 14 pórticos e 11 municípios.",
-  "updatedAt":  "2026-10-28T17:35:05.574877888Z",
+  "summary":  "Plano de implementação para atualização dos 12 pontos de pedágio (Pórtico-01 a Pórtico-12 / PFF-01 a PFF-12), consolidação dos pórticos de pista duplicada (04 e 08), remoção dos pórticos 13 e 14 e correção da detecção do Pórtico-12 no cálculo de rotas da BR-267.",
+  "updatedAt":  "2026-10-29T13:15:29.040825005Z",
   "requestFeedback":  true,
   "userFacing":  true
 }

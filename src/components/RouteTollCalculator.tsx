@@ -45,6 +45,7 @@ export interface CityNode {
 export interface GantryDef {
   id: string;
   code: string;
+  pffCode: string;
   number: number;
   highway: string;
   kmDisplay: string;
@@ -55,6 +56,8 @@ export interface GantryDef {
   lat: number;
   lng: number;
   baseFee: number; // Base fee for 1x car
+  gantriesCount?: number;
+  duplicatedLaneNote?: string;
 }
 
 export interface RouteEdge {
@@ -89,7 +92,7 @@ export const CITIES: CityNode[] = [
   { id: 'ac', name: 'Água Clara', uf: 'MS', region: 'Costa Leste BR-262', locationType: 'municipality', lat: -20.4481, lng: -52.8797 },
   { id: 'tl', name: 'Três Lagoas', uf: 'MS', region: 'Polo Industrial Leste BR-262', locationType: 'municipality', lat: -20.7849, lng: -51.7007 },
   { id: 'srp', name: 'Santa Rita do Pardo', uf: 'MS', region: 'Corredor MS-040', locationType: 'municipality', lat: -21.3014, lng: -52.8306 },
-  { id: 'bat', name: 'Bataguassu', uf: 'MS', region: 'Entroncamento BR-267 / Divisa SP', locationType: 'municipality', lat: -21.7142, lng: -52.4222 },
+  { id: 'bat', name: 'Bataguassu', uf: 'MS', region: 'Entroncamento BR-267 / Divisa SP', locationType: 'municipality', lat: -21.7263, lng: -52.3150 },
   { id: 'nand', name: 'Nova Andradina', uf: 'MS', region: 'Vale do Ivinhema BR-267', locationType: 'municipality', lat: -22.2333, lng: -53.3431 },
   { id: 'nas', name: 'Nova Alvorada do Sul', uf: 'MS', region: 'Entroncamento BR-163 / BR-267', locationType: 'municipality', lat: -21.4658, lng: -54.3839 },
   { id: 'anau', name: 'Anaurilândia', uf: 'MS', region: 'Região Leste BR-267', locationType: 'municipality', lat: -22.1875, lng: -52.7178 },
@@ -157,22 +160,20 @@ export const CITIES: CityNode[] = [
   { id: 'ref-fazenda-040', name: 'Polo Agroflorestal Fazenda MS-040', uf: 'MS', region: 'Santa Rita do Pardo · MS-040', locationType: 'reference', lat: -20.9200, lng: -53.9500 },
 ];
 
-// 2. Official 14 Gantries
+// 2. Official 12 Gantries (PFF-01 to PFF-12; Pórticos 04 and 08 have 2 physical structures on duplicated lanes, replacing 13 and 14)
 export const GANATRIES_MAP: Record<string, GantryDef> = {
-  'p01': { id: 'p01', code: 'Pórtico-01', number: 1, highway: 'BR-262', kmDisplay: 'km 040+450', declaredKm: 40.450, estimatedKm: 40.277, axisDistanceM: 1.7, city: 'Três Lagoas/MS', lat: -20.774761, lng: -51.972631, baseFee: 13.70 },
-  'p02': { id: 'p02', code: 'Pórtico-02', number: 2, highway: 'BR-262', kmDisplay: 'km 109+500', declaredKm: 109.500, estimatedKm: 109.585, axisDistanceM: 0.8, city: 'Água Clara/MS', lat: -20.532817, lng: -52.578264, baseFee: 16.00 },
-  'p03': { id: 'p03', code: 'Pórtico-03', number: 3, highway: 'BR-262', kmDisplay: 'km 204+460', declaredKm: 204.460, estimatedKm: 204.437, axisDistanceM: 6.5, city: 'Ribas do Rio Pardo/MS', lat: -20.467206, lng: -53.427997, baseFee: 18.00 },
-  'p04': { id: 'p04', code: 'Pórtico-04', number: 4, highway: 'BR-262', kmDisplay: 'km 288+300', declaredKm: 288.300, estimatedKm: 288.392, axisDistanceM: 7.9, city: 'Campo Grande/MS', lat: -20.490294, lng: -54.188414, baseFee: 14.90 },
-  'p05': { id: 'p05', code: 'Pórtico-05', number: 5, highway: 'MS-040', kmDisplay: 'km 045+360', declaredKm: 45.360, estimatedKm: 45.422, axisDistanceM: 1.6, city: 'Campo Grande/MS', lat: -20.712436, lng: -54.231033, baseFee: 14.90 },
-  'p06': { id: 'p06', code: 'Pórtico-06', number: 6, highway: 'MS-040', kmDisplay: 'km 216+120', declaredKm: 216.120, estimatedKm: 216.049, axisDistanceM: 2.9, city: 'Santa Rita do Pardo/MS', lat: -21.262358, lng: -52.906136, baseFee: 5.60 },
-  'p07': { id: 'p07', code: 'Pórtico-07', number: 7, highway: 'MS-338', kmDisplay: 'km 311+900', declaredKm: 311.900, estimatedKm: 313.988, axisDistanceM: 4.8, city: 'Santa Rita do Pardo/MS', lat: -21.464914, lng: -52.633011, baseFee: 5.60 },
-  'p08': { id: 'p08', code: 'Pórtico-08', number: 8, highway: 'BR-267', kmDisplay: 'km 024+500', declaredKm: 24.500, estimatedKm: 23.918, axisDistanceM: 7.1, city: 'Bataguassu/MS', lat: -21.726575, lng: -52.369401, baseFee: 10.90 },
-  'p09': { id: 'p09', code: 'Pórtico-09', number: 9, highway: 'BR-267', kmDisplay: 'km 129+100', declaredKm: 129.100, estimatedKm: 129.348, axisDistanceM: 9.0, city: 'Nova Andradina/MS', lat: -21.731950, lng: -53.306156, baseFee: 17.80 },
-  'p10': { id: 'p10', code: 'Pórtico-10', number: 10, highway: 'BR-267', kmDisplay: 'km 182+000', declaredKm: 182.000, estimatedKm: 182.120, axisDistanceM: 3.9, city: 'Nova Alvorada do Sul/MS', lat: -21.606100, lng: -53.789867, baseFee: 13.10 },
-  'p11': { id: 'p11', code: 'Pórtico-11', number: 11, highway: 'MS-040', kmDisplay: 'km 123+860', declaredKm: 123.860, estimatedKm: 123.536, axisDistanceM: 3.5, city: 'Ribas do Rio Pardo/MS', lat: -21.099819, lng: -53.702325, baseFee: 16.20 },
-  'p12': { id: 'p12', code: 'Pórtico-12', number: 12, highway: 'BR-267', kmDisplay: 'km 065+750', declaredKm: 65.750, estimatedKm: 66.198, axisDistanceM: 3.9, city: 'Anaurilândia/MS', lat: -21.852417, lng: -52.733739, baseFee: 12.30 },
-  'p13': { id: 'p13', code: 'Pórtico-13', number: 13, highway: 'MS-338', kmDisplay: 'km 150+000', declaredKm: 150.000, estimatedKm: 150.000, axisDistanceM: 2.5, city: 'Camapuã/MS', lat: -19.980000, lng: -53.900000, baseFee: 16.20 },
-  'p14': { id: 'p14', code: 'Pórtico-14', number: 14, highway: 'MS-395', kmDisplay: 'km 080+000', declaredKm: 80.000, estimatedKm: 80.000, axisDistanceM: 2.0, city: 'Brasilândia/MS', lat: -21.480000, lng: -52.230000, baseFee: 11.30 },
+  'p01': { id: 'p01', code: 'Pórtico-01', pffCode: 'PFF-01', number: 1, highway: 'BR-262', kmDisplay: 'km 040+450', declaredKm: 40.450, estimatedKm: 40.277, axisDistanceM: 1.7, city: 'Três Lagoas/MS', lat: -20.774761, lng: -51.972631, baseFee: 13.70, gantriesCount: 1 },
+  'p02': { id: 'p02', code: 'Pórtico-02', pffCode: 'PFF-02', number: 2, highway: 'BR-262', kmDisplay: 'km 109+500', declaredKm: 109.500, estimatedKm: 109.585, axisDistanceM: 0.8, city: 'Água Clara/MS', lat: -20.532817, lng: -52.578264, baseFee: 16.00, gantriesCount: 1 },
+  'p03': { id: 'p03', code: 'Pórtico-03', pffCode: 'PFF-03', number: 3, highway: 'BR-262', kmDisplay: 'km 204+460', declaredKm: 204.460, estimatedKm: 204.437, axisDistanceM: 6.5, city: 'Ribas do Rio Pardo/MS', lat: -20.467206, lng: -53.427997, baseFee: 18.00, gantriesCount: 1 },
+  'p04': { id: 'p04', code: 'Pórtico-04', pffCode: 'PFF-04', number: 4, highway: 'BR-262', kmDisplay: 'km 288+300', declaredKm: 288.300, estimatedKm: 288.392, axisDistanceM: 7.9, city: 'Campo Grande/MS', lat: -20.490294, lng: -54.188414, baseFee: 14.90, gantriesCount: 2, duplicatedLaneNote: 'Pista duplicada: 2 pórticos físicos (Leste/Oeste) na mesma localização' },
+  'p05': { id: 'p05', code: 'Pórtico-05', pffCode: 'PFF-05', number: 5, highway: 'MS-040', kmDisplay: 'km 045+360', declaredKm: 45.360, estimatedKm: 45.422, axisDistanceM: 1.6, city: 'Campo Grande/MS', lat: -20.712436, lng: -54.231033, baseFee: 14.90, gantriesCount: 1 },
+  'p06': { id: 'p06', code: 'Pórtico-06', pffCode: 'PFF-06', number: 6, highway: 'MS-040', kmDisplay: 'km 216+120', declaredKm: 216.120, estimatedKm: 216.049, axisDistanceM: 2.9, city: 'Santa Rita do Pardo/MS', lat: -21.262358, lng: -52.906136, baseFee: 5.60, gantriesCount: 1 },
+  'p07': { id: 'p07', code: 'Pórtico-07', pffCode: 'PFF-07', number: 7, highway: 'MS-338', kmDisplay: 'km 311+900', declaredKm: 311.900, estimatedKm: 313.988, axisDistanceM: 4.8, city: 'Santa Rita do Pardo/MS', lat: -21.464914, lng: -52.633011, baseFee: 5.60, gantriesCount: 1 },
+  'p08': { id: 'p08', code: 'Pórtico-08', pffCode: 'PFF-08', number: 8, highway: 'BR-267', kmDisplay: 'km 021+200', declaredKm: 21.200, estimatedKm: 21.200, axisDistanceM: 1.2, city: 'Bataguassu/MS', lat: -21.726745, lng: -52.337542, baseFee: 10.90, gantriesCount: 2, duplicatedLaneNote: 'Pista duplicada: 2 pórticos físicos (Leste/Oeste) na mesma localização' },
+  'p09': { id: 'p09', code: 'Pórtico-09', pffCode: 'PFF-09', number: 9, highway: 'BR-267', kmDisplay: 'km 129+100', declaredKm: 129.100, estimatedKm: 129.348, axisDistanceM: 9.0, city: 'Nova Andradina/MS', lat: -21.731950, lng: -53.306156, baseFee: 17.80, gantriesCount: 1 },
+  'p10': { id: 'p10', code: 'Pórtico-10', pffCode: 'PFF-10', number: 10, highway: 'BR-267', kmDisplay: 'km 182+000', declaredKm: 182.000, estimatedKm: 182.120, axisDistanceM: 3.9, city: 'Nova Alvorada do Sul/MS', lat: -21.606100, lng: -53.789867, baseFee: 13.10, gantriesCount: 1 },
+  'p11': { id: 'p11', code: 'Pórtico-11', pffCode: 'PFF-11', number: 11, highway: 'MS-040', kmDisplay: 'km 123+860', declaredKm: 123.860, estimatedKm: 123.536, axisDistanceM: 3.5, city: 'Ribas do Rio Pardo/MS', lat: -21.099819, lng: -53.702325, baseFee: 16.20, gantriesCount: 1 },
+  'p12': { id: 'p12', code: 'Pórtico-12', pffCode: 'PFF-12', number: 12, highway: 'BR-267', kmDisplay: 'km 065+750', declaredKm: 65.750, estimatedKm: 66.198, axisDistanceM: 3.2, city: 'Anaurilândia/MS', lat: -21.852417, lng: -52.733739, baseFee: 12.30, gantriesCount: 1 },
 };
 
 // 3. Topo-Geographic Segments / Graph Edges
@@ -186,8 +187,8 @@ export const ROUTE_EDGES: RouteEdge[] = [
   { from: 'cg', to: 'srp', highway: 'MS-040', gantries: ['p05', 'p11', 'p06'] },
 
   // MS-338 Corridor
-  { from: 'srp', to: 'bat', highway: 'MS-338', gantries: ['p07'] },
-  { from: 'cam', to: 'rrp', highway: 'MS-338', gantries: ['p13'] },
+  { from: 'srp', to: 'bat', highway: 'MS-338', gantries: ['p07', 'p08'] },
+  { from: 'cam', to: 'rrp', highway: 'MS-338', gantries: [] },
 
   // BR-163 / BR-267 Corridor
   { from: 'cg', to: 'nas', highway: 'BR-163', gantries: [] },
@@ -196,7 +197,7 @@ export const ROUTE_EDGES: RouteEdge[] = [
   { from: 'anau', to: 'bat', highway: 'BR-267', gantries: ['p12', 'p08'] },
 
   // MS-395 Corridor
-  { from: 'bat', to: 'bra', highway: 'MS-395', gantries: ['p14'] },
+  { from: 'bat', to: 'bra', highway: 'MS-395', gantries: [] },
   { from: 'bra', to: 'tl', highway: 'MS-395', gantries: [] },
 
   // Regional Accesses
@@ -390,6 +391,30 @@ function haversineDistanceMeters(lat1: number, lon1: number, lat2: number, lon2:
   return R * c;
 }
 
+// Orthogonal Point-to-Segment projection distance in meters & segment progression t in [0, 1]
+function pointToSegmentProjection(
+  pLat: number,
+  pLng: number,
+  lat1: number,
+  lng1: number,
+  lat2: number,
+  lng2: number
+): { distanceMeters: number; t: number } {
+  const cosLat = Math.cos((pLat * Math.PI) / 180);
+  const ax = (lng1 - pLng) * 111320 * cosLat;
+  const ay = (lat1 - pLat) * 110540;
+  const bx = (lng2 - pLng) * 111320 * cosLat;
+  const by = (lat2 - pLat) * 110540;
+  const dx = bx - ax;
+  const dy = by - ay;
+  const lenSq = dx * dx + dy * dy;
+  let t = lenSq === 0 ? 0 : -(ax * dx + ay * dy) / lenSq;
+  t = Math.max(0, Math.min(1, t));
+  const cx = ax + t * dx;
+  const cy = ay + t * dy;
+  return { distanceMeters: Math.hypot(cx, cy), t };
+}
+
 // Nominatim OpenStreetMap Async Hybrid Search Engine
 async function searchNominatim(query: string): Promise<CityNode[]> {
   if (!query || query.trim().length < 3) return [];
@@ -564,19 +589,33 @@ async function fetchRealMultiStopRoutes(
 
       allGantries.forEach(gantry => {
         let minDistance = Infinity;
-        let minIdx = -1;
+        let minProgression = -1;
 
-        for (let i = 0; i < coords.length; i++) {
-          const [pLng, pLat] = coords[i];
-          const dist = haversineDistanceMeters(gantry.lat, gantry.lng, pLat, pLng);
-          if (dist < minDistance) {
-            minDistance = dist;
-            minIdx = i;
+        if (coords.length === 1) {
+          const [pLng, pLat] = coords[0];
+          minDistance = haversineDistanceMeters(gantry.lat, gantry.lng, pLat, pLng);
+          minProgression = 0;
+        } else {
+          for (let i = 0; i < coords.length - 1; i++) {
+            const [lng1, lat1] = coords[i];
+            const [lng2, lat2] = coords[i + 1];
+            const { distanceMeters, t } = pointToSegmentProjection(
+              gantry.lat,
+              gantry.lng,
+              lat1,
+              lng1,
+              lat2,
+              lng2
+            );
+            if (distanceMeters < minDistance) {
+              minDistance = distanceMeters;
+              minProgression = i + t;
+            }
           }
         }
 
         if (minDistance <= 1500) {
-          detectedGantriesWithIdx.push({ gantry, idx: minIdx });
+          detectedGantriesWithIdx.push({ gantry, idx: minProgression });
         }
       });
 
@@ -786,15 +825,17 @@ const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
         iconAnchor: [iconSize[0] / 2, iconSize[1] / 2]
       });
 
+      // 1. Plot All 12 Official Gantries
       const popupHtml = `
-        <div class="p-2 text-slate-800 text-xs font-sans min-w-[210px]">
-          <div class="font-bold text-sm text-[#1A2B49] border-b border-slate-200 pb-1 mb-1.5 flex items-center justify-between">
-            <span>${gantry.code}</span>
+        <div class="p-2 text-slate-800 text-xs font-sans min-w-[220px]">
+          <div class="font-bold text-sm text-[#1A2B49] border-b border-slate-200 pb-1 mb-1.5 flex items-center justify-between gap-2">
+            <span>${gantry.code} <span class="text-[10px] font-mono text-slate-500">(${gantry.pffCode})</span></span>
             <span class="text-[10px] font-mono text-[#46973A] bg-emerald-50 px-1.5 py-0.5 rounded border border-emerald-200 font-bold">${gantry.highway}</span>
           </div>
           <div class="space-y-1 text-[11px] text-slate-600">
             <div><strong>Município:</strong> ${gantry.city}</div>
             <div><strong>Estaca/KM:</strong> ${gantry.kmDisplay}</div>
+            ${gantry.duplicatedLaneNote ? `<div class="text-[10px] font-semibold text-amber-800 bg-amber-50 border border-amber-200 rounded px-1.5 py-0.5">${gantry.duplicatedLaneNote}</div>` : ''}
             <div class="text-[10px] font-mono text-slate-500">KM Decl: ${gantry.declaredKm} | KM Est: ${gantry.estimatedKm}</div>
             <div class="text-[10px] font-mono text-slate-500">Distância ao Eixo: ${gantry.axisDistanceM} m</div>
             <div class="pt-1.5 mt-1.5 border-t border-slate-100 flex items-center justify-between font-mono">
@@ -915,7 +956,7 @@ const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-2.5 h-2.5 rounded-full bg-slate-400 border border-white" />
-          <span>Demais Pórticos (14 Total)</span>
+          <span>Demais Pórticos (12 Total)</span>
         </span>
         {validStops.length >= 2 && (
           <span className="flex items-center gap-1.5">
@@ -1514,7 +1555,7 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
                 <span>Mapa Geográfico Interativo do Trajeto (Leaflet)</span>
               </div>
               <span className="text-[11px] font-mono text-slate-500 hidden sm:inline">
-                14 Pórticos Free Flow no MS
+                12 Pontos de Cobrança (14 Pórticos Físicos)
               </span>
             </div>
 
@@ -1768,9 +1809,12 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
                                 {idx + 1}
                               </span>
                               <div>
-                                <div className="flex items-center gap-2">
+                                <div className="flex flex-wrap items-center gap-2">
                                   <span className="font-bold text-sm text-[#1A2B49]">
                                     {gantry.code}
+                                  </span>
+                                  <span className="text-[11px] font-mono font-bold text-slate-600 bg-slate-100 px-1.5 py-0.5 rounded border border-slate-200">
+                                    {gantry.pffCode}
                                   </span>
                                   <span className="text-xs font-mono font-bold text-[#46973A] bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
                                     {gantry.highway} · {gantry.kmDisplay}
@@ -1779,6 +1823,11 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
                                 <span className="text-xs text-slate-500 mt-0.5 block">
                                   Município de Referência: <strong>{gantry.city}</strong>
                                 </span>
+                                {gantry.duplicatedLaneNote && (
+                                  <span className="text-[11px] text-amber-800 bg-amber-50 border border-amber-200 px-2 py-0.5 rounded-md mt-1 inline-block font-medium">
+                                    {gantry.duplicatedLaneNote}
+                                  </span>
+                                )}
                               </div>
                             </div>
 
