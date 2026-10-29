@@ -9,6 +9,7 @@ import { CertificateModal } from './components/CertificateModal';
 import { ContentManagerModal } from './components/ContentManagerModal';
 import { ProfileModal } from './components/ProfileModal';
 import { RouteTollCalculator } from './components/RouteTollCalculator';
+import { FAQPage } from './components/FAQPage';
 
 export function App() {
   const {
@@ -42,6 +43,7 @@ export function App() {
       if (hash === 'treinamento') setCurrentTab('training');
       else if (hash === 'calculadora' || hash === 'calculador') setCurrentTab('calculator');
       else if (hash === 'arena' || hash === 'provas') setCurrentTab('arena');
+      else if (hash === 'faq' || hash === 'duvidas' || hash === 'perguntas') setCurrentTab('faq');
       else setCurrentTab('home');
     };
 
@@ -59,6 +61,7 @@ export function App() {
     else if (tab === 'calculator') window.location.hash = '#/calculadora';
     else if (tab === 'training') window.location.hash = '#/treinamento';
     else if (tab === 'arena') window.location.hash = '#/arena';
+    else if (tab === 'faq') window.location.hash = '#/faq';
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
@@ -90,6 +93,7 @@ export function App() {
           <HomeOverview
             onNavigateToTraining={handleNavigateToTraining}
             onNavigateToArena={handleNavigateToArena}
+            onNavigateToFaq={() => handleSelectTab('faq')}
             completedModulesCount={profile.completedModules?.length || 0}
             totalModulesCount={modules.length}
           />
@@ -119,6 +123,12 @@ export function App() {
             onRecordCaseCompleted={recordCaseCompleted}
             onRecordQuizScore={recordQuizResult}
             onOpenCertificate={() => {}}
+          />
+        )}
+
+        {currentTab === 'faq' && (
+          <FAQPage
+            onGoToCalculator={() => handleSelectTab('calculator')}
           />
         )}
       </main>
@@ -187,6 +197,12 @@ export function App() {
               className="hover:text-emerald-800 cursor-pointer"
             >
               Provas & Jogos
+            </button>
+            <button
+              onClick={() => handleSelectTab('faq')}
+              className="hover:text-emerald-800 cursor-pointer"
+            >
+              FAQ / Dúvidas
             </button>
             <button
               onClick={() => setIsContentManagerOpen(true)}

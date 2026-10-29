@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { TabType, OperatorProfile } from '../types';
-import { Award, User, BookOpen, Layers, Home, CheckCircle2, SlidersHorizontal, Calculator } from 'lucide-react';
+import { Award, User, BookOpen, Layers, Home, CheckCircle2, SlidersHorizontal, Calculator, HelpCircle } from 'lucide-react';
 
 interface NavbarProps {
   currentTab: TabType;
@@ -108,6 +108,18 @@ export const Navbar: React.FC<NavbarProps> = ({
               <Layers className="w-4 h-4" />
               <span>Arena & Provas</span>
             </button>
+
+            <button
+              onClick={() => onSelectTab('faq')}
+              className={`flex items-center gap-1.5 py-1.5 transition-colors whitespace-nowrap cursor-pointer ${
+                currentTab === 'faq'
+                  ? 'text-[#46973A] font-bold border-b-2 border-[#46973A]'
+                  : 'text-[#1A2B49] hover:text-[#46973A]'
+              }`}
+            >
+              <HelpCircle className="w-4 h-4" />
+              <span>FAQ / Dúvidas</span>
+            </button>
           </nav>
 
           {/* Zone 3: Primary Action & Profile Info */}
@@ -177,6 +189,12 @@ export const Navbar: React.FC<NavbarProps> = ({
               className={`text-left px-3 py-2 rounded-lg ${currentTab === 'arena' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
             >
               Arena Interativa (Quiz, Memória & Casos)
+            </button>
+            <button
+              onClick={() => { onSelectTab('faq'); setMobileMenuOpen(false); }}
+              className={`text-left px-3 py-2 rounded-lg ${currentTab === 'faq' ? 'bg-emerald-50 text-emerald-900 font-semibold' : 'text-slate-600'}`}
+            >
+              FAQ / Dúvidas sobre Pedágio Eletrônico
             </button>
           </div>
         )}

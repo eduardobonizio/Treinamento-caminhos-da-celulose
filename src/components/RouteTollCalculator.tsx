@@ -697,6 +697,8 @@ interface InteractiveRouteMapProps {
   availableRoutes: CalculatedRouteResult[];
   selectedRouteIndex: number;
   effectiveMultiplier: number;
+  selectedCategory: OfficialVehicleCategory;
+  customAxisCount: number;
   highlightGantry: GantryDef | null;
 }
 
@@ -705,6 +707,8 @@ const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
   availableRoutes,
   selectedRouteIndex,
   effectiveMultiplier,
+  selectedCategory,
+  customAxisCount,
   highlightGantry
 }) => {
   const isLeafletLoaded = useLeaflet();
@@ -839,12 +843,15 @@ const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
             <div class="text-[10px] font-mono text-slate-500">KM Decl: ${gantry.declaredKm} | KM Est: ${gantry.estimatedKm}</div>
             <div class="text-[10px] font-mono text-slate-500">Distância ao Eixo: ${gantry.axisDistanceM} m</div>
             <div class="pt-1.5 mt-1.5 border-t border-slate-100 flex items-center justify-between font-mono">
-              <span class="text-slate-500">Tarifa Base:</span>
+              <span class="text-slate-500">Tarifa Base (CAT 1):</span>
               <span class="font-bold text-slate-800">R$ ${gantry.baseFee.toFixed(2).replace('.', ',')}</span>
             </div>
-            <div class="flex items-center justify-between font-mono font-bold text-[#1A2B49] bg-slate-50 p-1.5 rounded-lg border border-slate-200">
-              <span>Valor Categoria (${effectiveMultiplier}x):</span>
-              <span class="text-[#46973A] text-xs font-extrabold">${effectiveMultiplier === 0 ? 'ISENTO (R$ 0,00)' : 'R$ ' + calculatedFee.toFixed(2).replace('.', ',')}</span>
+            <div class="flex flex-col gap-0.5 font-mono font-bold text-[#1A2B49] bg-slate-50 p-1.5 rounded-lg border border-slate-200">
+              <div class="flex items-center justify-between">
+                <span>Valor (${selectedCategory.code}):</span>
+                <span class="text-[#46973A] text-xs font-extrabold">${effectiveMultiplier === 0 ? 'ISENTO (R$ 0,00)' : 'R$ ' + calculatedFee.toFixed(2).replace('.', ',')}</span>
+              </div>
+              <span class="text-[9px] font-sans font-medium text-slate-500">${selectedCategory.isCustomAxisCount ? `${customAxisCount} eixos` : selectedCategory.axesDescription} · ${selectedCategory.wheelsType}</span>
             </div>
           </div>
         </div>
@@ -935,7 +942,7 @@ const InteractiveRouteMap: React.FC<InteractiveRouteMapProps> = ({
       map.setView([-20.95, -53.30], 7);
     }
 
-  }, [isLeafletLoaded, validStops, availableRoutes, selectedRouteIndex, effectiveMultiplier]);
+  }, [isLeafletLoaded, validStops, availableRoutes, selectedRouteIndex, effectiveMultiplier, selectedCategory, customAxisCount]);
 
   return (
     <div className="relative w-full h-[440px] lg:h-[480px] rounded-2xl border border-slate-200 overflow-hidden shadow-xs bg-slate-100">
@@ -1157,8 +1164,8 @@ export const RouteTollCalculator: React.FC = () => {
 Paradas da Viagem (${validStops.length}):
 ${validStops.map((s, i) => `${i === 0 ? 'Ponto de Partida (Saída)' : i === validStops.length - 1 ? 'Destino Final' : `Parada ${i}`}: ${s.name} (${s.region})`).join('\n')}
 
-Categoria: ${selectedOfficialCategory.name} (${effectiveMultiplier}x)
-Tipo de Viagem: ${isRoundTrip ? 'Ida e Volta (2x)' : 'Apenas Ida'}
+Categoria: ${selectedOfficialCategory.name} (${selectedOfficialCategory.isCustomAxisCount ? `${customAxisCount} eixos` : selectedOfficialCategory.axesDescription} • ${selectedOfficialCategory.wheelsType})
+Tipo de Viagem: ${isRoundTrip ? 'Ida e Volta' : 'Apenas Ida'}
 ${simulatedCost.isExempt ? `Isenção Legal: ${selectedExemption.label}\n` : ''}Distância Total: ${activeRoute.distanceKm ? activeRoute.distanceKm + ' km' : 'N/A'} | Tempo Estimado: ${activeRoute.durationMinutes ? '~' + Math.floor(activeRoute.durationMinutes / 60) + 'h ' + (activeRoute.durationMinutes % 60) + 'm' : 'N/A'}
 Rota: ${activeRoute.routeName}
 
@@ -1438,20 +1445,25 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
                 >
                   {OFFICIAL_CATEGORIES.map(cat => (
                     <option key={cat.id} value={cat.id}>
-                      {cat.name} ({cat.wheelsType} • {cat.baseMultiplier > 0 ? `${cat.baseMultiplier}x` : 'Tarifa Zero'})
+                      {cat.name} ({cat.axesDescription} • {cat.wheelsType})
                     </option>
                   ))}
                 </select>
                 <ChevronDown className="w-4 h-4 text-slate-400 absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none" />
               </div>
 
-              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1">
-                <div className="font-bold text-[#1A2B49] flex items-center justify-between">
-                  <span>{selectedOfficialCategory.code} · {selectedOfficialCategory.axesDescription}</span>
+              <div className="p-3 bg-slate-50 border border-slate-200 rounded-xl text-xs space-y-1.5">
+                <div className="font-bold text-[#1A2B49] flex flex-wrap items-center justify-between gap-2">
+                  <span>
+                    {selectedOfficialCategory.code} · {selectedOfficialCategory.isCustomAxisCount ? `${customAxisCount} eixos` : selectedOfficialCategory.axesDescription}
+                  </span>
                   <span className="font-mono text-[#46973A] font-extrabold bg-emerald-50 px-2 py-0.5 rounded border border-emerald-100">
-                    Multiplicador {effectiveMultiplier}x
+                    {selectedOfficialCategory.wheelsType}
                   </span>
                 </div>
+                <p className="text-[11px] text-slate-600">
+                  <strong>Critério de Cobrança:</strong> Categoria, {selectedOfficialCategory.isCustomAxisCount ? `${customAxisCount} eixos` : selectedOfficialCategory.axesDescription} e {selectedOfficialCategory.wheelsType.toLowerCase()}
+                </p>
                 <p className="text-[11px] text-slate-600">
                   <strong>Exemplos:</strong> {selectedOfficialCategory.exampleVehicles}
                 </p>
@@ -1480,7 +1492,7 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
                       }}
                       className="w-16 px-2 py-1 text-center font-mono font-bold text-sm bg-white border border-slate-300 rounded-lg focus:border-[#46973A] focus:outline-none"
                     />
-                    <span className="text-xs font-mono font-bold text-[#46973A]">{customAxisCount}x</span>
+                    <span className="text-xs font-mono font-bold text-[#46973A]">eixos</span>
                   </div>
                 </div>
               )}
@@ -1564,6 +1576,8 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
               availableRoutes={availableRoutes}
               selectedRouteIndex={selectedRouteIndex}
               effectiveMultiplier={effectiveMultiplier}
+              selectedCategory={selectedOfficialCategory}
+              customAxisCount={customAxisCount}
               highlightGantry={highlightGantry}
             />
           </div>
@@ -1701,7 +1715,7 @@ Regulamentado pela AGEMS · 30 dias para pagamento digital sem TAG.
                           <div className="w-8 h-4 bg-slate-600 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-slate-300 after:border after:rounded-full after:h-3 after:w-3 after:transition-all peer-checked:bg-[#46973A] relative"></div>
                           <span className="text-xs font-semibold text-slate-200 flex items-center gap-1">
                             <Repeat className="w-3 h-3 text-emerald-300" />
-                            <span>Ida e Volta (2x)</span>
+                            <span>Ida e Volta</span>
                           </span>
                         </label>
 

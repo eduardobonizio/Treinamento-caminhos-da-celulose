@@ -1,6 +1,6 @@
 {
-  "summary":  "Plano de implementação para atualização dos 12 pontos de pedágio (Pórtico-01 a Pórtico-12 / PFF-01 a PFF-12), consolidação dos pórticos de pista duplicada (04 e 08), remoção dos pórticos 13 e 14 e correção da detecção do Pórtico-12 no cálculo de rotas da BR-267.",
-  "updatedAt":  "2026-10-29T13:15:29.040825005Z",
+  "summary":  "Plano de implementação detalhado para a nova página de FAQ (Perguntas Frequentes) sobre o Pedágio Eletrônico da Concessionária Caminhos da Celulose, com busca em tempo real, filtros por categoria, acordeão acessível e sincronização com os 12 pórticos oficiais.",
+  "updatedAt":  "2026-10-29T13:59:52.554936318Z",
   "requestFeedback":  true,
   "userFacing":  true
 }
